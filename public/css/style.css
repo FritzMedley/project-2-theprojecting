@@ -1,0 +1,40 @@
+header .header-content {
+  position: relative;
+  text-align: center;
+  padding: 100px 15px 100px;
+  width: 100%;
+  background-image: url("../images/backpacking.jpg");
+  background-size: cover;
+}
+
+header {
+  height: 80%;
+}
+/*background-image:url("../public/images/basketball.jpg");*/
+
+.leftActivities {
+  float:left;
+}
+
+.rightActivities {
+  float:right;
+}
+
+body, h1, h2, h3, p, a {
+  color: black;
+  font-family: 'Muli', sans-serif;
+}
+
+tbody {
+    height: 100px;
+    overflow: auto;
+    width:200px;
+}
+td {
+    padding: 3px 15px;
+    width:60px;
+    border: 1px solid black;
+}
+
+thead > tr, tbody{
+    display:block;}
