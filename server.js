@@ -2,6 +2,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
 var methodOverride = require("method-override");
+var db = require("./models");
+var passport = require("passport");
 
 var PORT = process.env.PORT || 8080;
 
@@ -21,11 +23,24 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+//maybe need?
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Import routes and give the server access to them.
 var htmlRoutes = require("./routes/htmlRoutes.js");
+var loginRoutes = require("./routes/loginRoutes.js");
 
 app.use("/", htmlRoutes);
+app.use(loginRoutes);
 
-app.listen(PORT, function(){
-  console.log("Server listening on PORT: "+PORT);
+db.sequelize.sync({force:true}).then(function(){
+  app.listen(PORT, function(){
+    console.log("Server listening on PORT: "+PORT);
+  });
 });
