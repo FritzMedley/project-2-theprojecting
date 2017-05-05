@@ -1,6 +1,6 @@
-create database veni_vidi_db; 
+create database project_2; 
 
-use veni_vidi_db; 
+use project_2; 
 
 create table events( 
 	id int not null auto_increment, 
@@ -10,3 +10,8 @@ create table events(
 	time_date timestamp not null default now(), 
 	primary key (id)
 )
+
+	category varchar(30) not null, 
+	time_date timestamp not null default now(), 
+	primary key (id)
+);
