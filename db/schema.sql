@@ -9,4 +9,4 @@ create table events(
 	category varchar(30) not null, 
 	time_date timestamp not null default now(), 
 	primary key (id)
-)
+);
