@@ -16,7 +16,7 @@ module.exports = function(app) {
   app.get("/api/posts", function(req, res) {
     var query = {};
     if (req.query.user_id) {
-      query.AuthorId = req.query.author_id;
+      query.user_id = req.query.user_id;
     }
     db.Post.findAll({
       where: query
@@ -26,10 +26,11 @@ module.exports = function(app) {
   });
 
   // Get rotue for retrieving a single post
-  app.get("/api/posts/:id", function(req, res) {
+  app.get("/api/posts/:location", function(req, res) {
     db.Post.findOne({
       where: {
-        id: req.params.id
+        location: req.params.location, 
+        category: 
       }
     }).then(function(dbPost) {
       console.log(dbPost);
