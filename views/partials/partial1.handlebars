@@ -1,1 +1,12 @@
 <h2>More Awesome Content</h2>
+
+{{#if authed}}
+  <br><br>
+  <h3>You are logged in as : {{name}}</h3>
+  <h3>With Email: {{email}}</h3>
+{{/if}}
+
+{{#unless authed}}
+  <br><br>
+  <h3>You are not logged in</h3>
+{{/unless}}
