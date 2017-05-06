@@ -4,6 +4,7 @@ var path = require("path");
 var methodOverride = require("method-override");
 var db = require("./models");
 var passport = require("passport");
+var session = require("express-session");
 
 var PORT = process.env.PORT || 8080;
 
@@ -24,11 +25,23 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 //maybe need?
-app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false
+// }));
+var sess = {
+  secret: 'keyboard cat',
+  saveUninitialized: false,
+  resave: false,
+  cookie: {}
+}
+ 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy 
+  sess.cookie.secure = true // serve secure cookies 
+}
+app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require("flash")());
