@@ -31,6 +31,7 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(require("flash")());
 
 // Import routes and give the server access to them.
 var htmlRoutes = require("./routes/htmlRoutes.js");
