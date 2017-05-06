@@ -1,8 +1,11 @@
 var express = require("express");
 var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var GOOGLE_CLIENT_KEY = require("../config/auth.js").GOOGLE_CONSUMER_KEY;
 var GOOGLE_CLIENT_SECRET = require("../config/auth.js").GOOGLE_CONSUMER_SECRET;
+
+var db = require("../models");
 
 
 
@@ -16,21 +19,46 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:8080/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log("=============================");
-    console.log(accessToken);
-    console.log("=============================");
-    console.log(refreshToken);
-    console.log("=============================");
-    console.log(profile);
-    console.log("=============================");
-    console.log();
-    console.log("=============================");
-      //  User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      //    return done(err, user);
-      //  });
-      return done(null, profile);
+      var loggedUser = {
+        oauthId: profile.id,
+        name: profile.displayName,
+        email: profile.emails[0].value,
+        credType: "google"
+      };
+      db.User.findOne({where: {oauthId: loggedUser.oauthId, credType: loggedUser.credType}}).done(function(dbUser){
+        if(dbUser!==null)
+          return done(null, dbUser);
+        else {
+          db.User.create(loggedUser).done(function(dbUser){
+            return done(null, dbUser);
+          });
+        }
+      });
   }
 ));
+
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback : true
+  }, function(req, username, password, done){
+  var loggedUser  = {
+    email: username,
+    password: password
+  };
+
+  db.User.findOne({where: {email: loggedUser.email}}).done(function(dbUser){
+    if(dbUser!==null) {
+      if(dbUser.password === loggedUser.password)
+        return done(null, dbUser);
+      else
+        return done(null, false, {message: "Incorrect Password"});
+    }
+    else {
+      return done(null, false, {message: "No account found, checm email"});
+    }
+  });
+}));
 
 passport.serializeUser(function(user, callback){
         console.log('serializing user.');
@@ -43,6 +71,42 @@ passport.deserializeUser(function(user, callback){
     });
 
 var router = express.Router();
+
+router.get("/login", function(req, res){
+  if(req.isAuthenticated())
+    res.send("You are already logged in!");
+  else {
+    res.render("login");
+  }
+});
+
+router.post('/login',
+  passport.authenticate('local', { successRedirect: '/success',
+                                   failureRedirect: '/login',
+                                   failureFlash: true })
+);
+
+router.get("/createUser", function(req, res){
+  res.render("createUser");
+});
+
+router.post("/createUser", function(req, res){
+  var newUser = {
+    name: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    credType: "local"
+  };
+  db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
+    if(dbUsers.length > 0){
+      return res.send("Sorry, that email is taken already");
+    } else {
+      db.User.create(newUser).done(function(dbUser){
+        return res.send("Account made");
+      });
+    }
+  });
+});
 
 // GET /auth/google
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -73,7 +137,7 @@ router.get('/logout', function(req, res) {
 });
 
 router.get("/success", function(req, res){
-  req.isAuthenticated
+  req.isAuthenticated();
   res.send("Logged in");
 });
 
@@ -82,6 +146,12 @@ router.get("/test", function(req, res){
     res.send("Person is allowed");
   else
     res.send("No, not allowed");
+});
+
+router.get("/users", function(req, res){
+  db.User.findAll({}).done(function(dbUsers){
+    res.json(dbUsers);
+  })
 });
 
 module.exports = router;
