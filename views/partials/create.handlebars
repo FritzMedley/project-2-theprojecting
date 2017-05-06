@@ -1,0 +1,63 @@
+<div class="containter"> 
+    <div class="row"> 
+      <!---A bunch input tags that the suer passes in storing basically 
+      The name of event 
+      Its location 
+      Category Drop Down 
+      Time & Date of the Event 
+      Number of Attendees 
+      Description
+      if(description) 
+        "Search for the parameters passed in from the search bar in the description 
+        if there's a match, return that event 
+      
+       --> 
+<h1>Add an event that you're planning to host.
+<form>
+  <div class="form-group">
+    <label for="eventName">Name</label>
+    <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="name">
+
+  </div>
+  <div class="form-group">
+    <label for="eventLocation">Location</label>
+    <input type="name" class="form-control" id="eventLocation" placeholder="Austin, TX">
+  </div>
+  <div class="form-group">
+    <label for="eventAttendees">Number of Attendees</label>
+    <input type="name" class="form-control" id="eventAttendees" placeholder="50">
+  </div>
+  <div class="form-group">
+    <label for="eventCategory">Category</label>
+    <select class="form-control" id="exampleSelect1">
+      <option>Music</option>
+      <option>Sports</option>
+      <option>Education</option>
+      <option>Parties</option>
+      <option>Games</option>
+      <option>Travel</option>
+      <option>Clubs</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="eventImage">Image Input</label>
+    <input type="file" class="form-control-file" id="imageInput" aria-describedby="fileHelp">
+  </div>
+  <div class="form-group">
+    <label for="exampleTextarea">Description</label>
+    <textarea class="form-control" id="description" rows="3"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Create A Table</button>
+</form>
+
+
+       	{{!--<div class="col-md-6 col-md-offset-3 jumbotron">
+        <h1>This is where one of the tables will load.</h1>
+       	</div>
+    </div>
+  <span>Location: </span><input id="location" type="text" name="search" placeholder="Austin, TX">
+  <span>Category: </span><input id="category" type="text" name="search" placeholder="Austin, TX">
+  <span>Date: </span><input id="date" type="text" name="search" placeholder="Austin, TX">
+  <span>Time: </span><input id="time" type="text" name="search" placeholder="Austin, TX">
+</div>--}}
