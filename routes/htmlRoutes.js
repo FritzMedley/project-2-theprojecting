@@ -10,7 +10,7 @@ router.get("/", function(req, res){
   //   user.authed = req.isAuthenticated();
   // }
   // res.render("index", user);
-  
+
   res.render("partials/index2");
 
 });

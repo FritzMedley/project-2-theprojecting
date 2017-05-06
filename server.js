@@ -35,11 +35,11 @@ var sess = {
   saveUninitialized: false,
   resave: false,
   cookie: {}
-}
- 
+};
+
 if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy 
-  sess.cookie.secure = true // serve secure cookies 
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(sess));
 app.use(passport.initialize());
@@ -57,5 +57,5 @@ app.use(loginRoutes);
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
     console.log("Server listening on PORT: "+PORT);
+  });
 });
-
