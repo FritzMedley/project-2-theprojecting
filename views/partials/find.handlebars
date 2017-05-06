@@ -1,13 +1,29 @@
-<div class="containter"> 
-    <div class="row"> 
-       	<div class="col-md-6 col-md-offset-3 jumbotron">
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<link rel="stylesheet" href="./css/find.css">
+
+</head>
+
+<body>
+
+<div class="jumbotron"> 
+    <div class="row">   
         <h1>Search an Event</h1>
-       	</div>
     </div>
-  <ul>
-  <li><span>Location: </span><input id="location" type="text" name="search" placeholder="Austin, TX"></li>
- <li><span>Category: </span><input id="category" type="text" name="search" placeholder="Sports..."></li>
-  <li><span>Date: </span><input id="date" type="text" name="search" placeholder="May 6 2017.."></li>
-  <li><span>Time: </span><input id="time" type="text" name="search" placeholder="5PM"></li>
-  <ul>
 </div>
+<div class="container" id="divider">
+</div>
+<div class="jumbotron">
+  <div id="searchEvent" class="jumbotron" action="/activities" method="POST">
+  <ul>
+  <li class="col-md-6"><div>Location: </span><br><input id="location" type="text" name="search" placeholder="Austin, TX"></div></li>
+ <li class="col-md-6"><div><span>Category: </span><br><input id="category" type="text" name="search" placeholder="Sports..."></div></li><br>
+  <li class="col-md-6"><div><span>Date: </span><br><input id="date" type="text" name="search" placeholder="May 6 2017.."></div></li><br>
+  <li class="col-md-6"><div><span>Time: </span><br><input id="time" type="text" name="search" placeholder="5PM"></div></li>
+  <ul>
+  </div>
+</div>
+</div>
+</body>
+</html>

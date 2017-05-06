@@ -1,19 +1,15 @@
-<div class="containter"> 
-    <div class="row"> 
-      <!---A bunch input tags that the suer passes in storing basically 
-      The name of event 
-      Its location 
-      Category Drop Down 
-      Time & Date of the Event 
-      Number of Attendees 
-      Description
-      if(description) 
-        "Search for the parameters passed in from the search bar in the description 
-        if there's a match, return that event 
-      
-       --> 
-<h1>Add an event that you're planning to host.
-<form>
+<head> 
+<link href="./css/create.css" rel="stylesheet">
+</head>
+
+<div class="container">
+<div id="main-container "class="container">
+  <img src="../../public/images/matt-heaton-96045.jpg"
+  <h1 id="headline">Create an Event</h1>
+  <p>Ready to host an event? Let the community know what you're loooking to make happen by filling out this form! Be sure to 
+add the a description of the event, the time and location so that your attendees know what to look forward to!</p>
+  </div>
+  <form id="createForm" action="/createEvent" method="POST">
   <div class="form-group">
     <label for="eventName">Name</label>
     <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="name">
@@ -21,7 +17,7 @@
   </div>
   <div class="form-group">
     <label for="eventLocation">Location</label>
-    <input type="name" class="form-control" id="eventLocation" placeholder="Austin, TX">
+    <input type="name" class="form-control" id="evenCatLocation" placeholder="Austin, TX">
   </div>
   <div class="form-group">
     <label for="eventAttendees">Number of Attendees</label>
@@ -50,6 +46,22 @@
   </div>
   <button type="submit" class="btn btn-primary">Create A Table</button>
 </form>
+</div>
+
+
+
+      <!---A bunch input tags that the suer passes in storing basically 
+      The name of event 
+      Its location 
+      Category Drop Down 
+      Time & Date of the Event 
+      Number of Attendees 
+      Description
+      if(description) 
+        "Search for the parameters passed in from the search bar in the description 
+        if there's a match, return that event 
+      
+       --> 
 
 
        	{{!--<div class="col-md-6 col-md-offset-3 jumbotron">
