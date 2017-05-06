@@ -53,8 +53,9 @@ var loginRoutes = require("./routes/loginRoutes.js");
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
 
+
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
     console.log("Server listening on PORT: "+PORT);
-  });
 });
+
