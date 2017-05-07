@@ -20,10 +20,6 @@ module.exports = function(sequelize, DataTypes){
     image: {
       type: DataTypes.STRING,
       allowNull: true
-    },
-    creatorId: {
-    type: DataTypes.INTEGER,
-    allowNull: false
     }
   },
 {
