@@ -46,12 +46,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(require("flash")());
 
+//execute code in passport.js
+require("./config/passport.js")();
+
 // Import routes and give the server access to them.
 var htmlRoutes = require("./routes/htmlRoutes.js");
 var loginRoutes = require("./routes/loginRoutes.js");
+var grantTestRoutes = require("./routes/grantTestRoutes.js");
 
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
+app.use("/test", grantTestRoutes);
 
 
 db.sequelize.sync({force:true}).then(function(){
