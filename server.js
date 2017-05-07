@@ -61,6 +61,8 @@ app.use("/test", grantTestRoutes);
 
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
-    console.log("Server listening on PORT: "+PORT);
-  });
+
+
+    console.log("Server listening on PORT: "+ PORT);
 });
+
