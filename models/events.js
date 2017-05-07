@@ -1,4 +1,3 @@
-
 module.exports = function(sequelize, DataTypes){
   var Event = sequelize.define("Event", {
     description: {
@@ -27,7 +26,6 @@ module.exports = function(sequelize, DataTypes){
     associate: function(models) {
       Event.belongsToMany(models.User, {through: "UserEvent"});
       Event.belongsTo(models.User, {
-        as: "creatorId",
         foreignKey: {
           allowNull: false
         }
