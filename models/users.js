@@ -20,18 +20,7 @@ module.exports = function(sequelize, DataTypes){
       type: DataTypes.STRING,
       allowNull: true
     }
-  },
-{
-  classMethods: {
-    associate: function(models) {
-      User.belongsToMany(models.Event, {through: "UserEvent"});
-      User.hasMany(models.Event, {
-        onDelete: "cascade"
-      });
-    }
-
-    }
-}
+  }
 );
   return User;
 };

@@ -56,7 +56,7 @@ router.get("/createEvent", function(req, res){
 
 router.post("/createEvent", function(req, res){
   if(!req.isAuthenticated())
-    res.send("You are not logged in");
+    res.redirect("/login");
   else {
     var newEvent = {
       description: req.body.description,

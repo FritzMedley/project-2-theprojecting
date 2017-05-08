@@ -52,15 +52,20 @@ require("./config/passport.js")();
 // Import routes and give the server access to them.
 var htmlRoutes = require("./routes/htmlRoutes.js");
 var loginRoutes = require("./routes/loginRoutes.js");
-var grantTestRoutes = require("./routes/grantTestRoutes.js");
+var apiRoutes = require("./routes/apiRoutes.js");
+// var grantTestRoutes = require("./routes/grantTestRoutes.js");
 
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
-app.use("/test", grantTestRoutes);
+app.use(apiRoutes);
+// app.use("/test", grantTestRoutes);
 
+//This connects to the file where our models are associated
+require("./config/dbassociate.js")();
 
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
-    console.log("Server listening on PORT: "+PORT);
-  });
+    console.log("Server listening on PORT: "+ PORT);
 });
+});
+

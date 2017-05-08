@@ -14,8 +14,43 @@ var router = express.Router();
 // Routes
 // =============================================================
 
+// POST route for saving a new post
+router.post("/api/events", function(req, res) {
+  db.Event.findAll({
+    //please be nice sequelize test
+    where: req.body
+  }).then(function(dbPost) {
+    res.json(dbPost);
+  }, function(err){
+    res.json([]); 
+  });
+});
+// DELETE route for deleting posts
+// router.delete("/api/events/:id", function(req, res) {
+//   db.Event.destroy({
+//     where: {
+//       id: req.params.id
+//     }
+//   }).then(function(dbPost) {
+//     res.json(dbPost);
+//   });
+// });
 
-// GET route for getting all of the posts
+// PUT route for updating posts
+// router.put("/api/events", function(req, res) {
+//   db.Event.update(
+//     req.body,
+//     {
+//       where: {
+//         id: req.body.id
+//       }
+//     }).then(function(dbPost) {
+//       res.json(dbPost);
+//     });
+// });
+
+
+//GET route for getting all of the posts
 router.get("/api/events", function(req, res) {
   var query = {};
   if (req.query.user_id) {
@@ -39,83 +74,5 @@ router.get("/api/events", function(req, res) {
     res.json(dbPost);
   });
 });
-
-router.post("/find", function(req, res) {
-  var query = {};
-  if (req.body.user_id) {
-    query.creatorId = req.body.user_id;
-  }
-  if (req.body.location) {
-    query.location = req.body.location;
-  }
-  if (req.body.category) {
-    query.category = req.body.category;
-  }
-  if (req.body.date) {
-    query.date = req.body.date;
-  }
-  if (req.body.time) {
-    query.time = req.body.time;
-  }
-  db.Event.findAll({
-    where: query
-  }).then(function(dbPost) {
-    res.render("/activities", dbPost);
-  });
-});
-
-router.post("/create", function(req, res) {
-//We need a conditional that only stores the data if all properties are available.
-var event = {};
-event.name = req.body.name;
-event.numAttendees = req.body.attendees;
-event.creatorID = req.body.creator;
-event.image = req.body.image;
-event.description = req.body.description;
-
-db.Event.create(event).then(function(dbEvent){
-    //redirect to individual page for created event.
-    res.redirect("/event?id=" + dbEvent.id);
-}, function(err){
-  if (err) throw err;
-  res.redirect("/error?msg=error");
-});
-
-
-})
-
-//
-
-// POST route for saving a new post
-router.post("/api/events", function(req, res) {
-  db.Event.create(req.body).then(function(dbPost) {
-    res.json(dbPost);
-  });
-});
-
-// DELETE route for deleting posts
-router.delete("/api/events/:id", function(req, res) {
-  db.Event.destroy({
-    where: {
-      id: req.params.id
-    }
-  }).then(function(dbPost) {
-    res.json(dbPost);
-  });
-});
-
-// PUT route for updating posts
-router.put("/api/events", function(req, res) {
-  db.Event.update(
-    req.body,
-    {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(dbPost) {
-      res.json(dbPost);
-    });
-});
-
 
 module.exports = router;
