@@ -28,6 +28,7 @@
   "homepage": "https://github.com/MagentaReds/project-2-theprojecting#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "chai": "^3.5.0",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.2",
@@ -39,5 +40,8 @@
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "sequelize": "^3.30.4"
+  },
+  "devDependencies": {
+    "mocha": "^3.3.0"
   }
 }
