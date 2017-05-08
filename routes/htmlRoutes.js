@@ -130,8 +130,6 @@ router.post("/createaccount", function(req, res){
   }
 });
 
-
-
 router.get("/createdevents", function(req, res){
   if(req.isAuthenticated()) {
     db.Event.findAll({where: 
