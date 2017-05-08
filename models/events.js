@@ -20,18 +20,7 @@ module.exports = function(sequelize, DataTypes){
       type: DataTypes.STRING,
       allowNull: true
     }
-  },
-{
-  classMethods: {
-    associate: function(models) {
-      Event.belongsToMany(models.User, {through: "UserEvent"});
-      Event.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: false
-        }
-      });
-    }
   }
-});
+);
   return Event;
 };

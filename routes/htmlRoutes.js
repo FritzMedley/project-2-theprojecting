@@ -135,7 +135,7 @@ router.post("/createaccount", function(req, res){
 router.get("/createdevents", function(req, res){
   if(req.isAuthenticated()) {
     db.Event.findAll({where: 
-      {Userid: req.body.id}     
+      {creatorid: req.body.id}     
     }).done(function(dbEvents){
       res.render("/userevents", dbEvents);
     });
