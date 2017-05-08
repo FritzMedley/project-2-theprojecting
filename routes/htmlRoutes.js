@@ -10,9 +10,9 @@ router.get("/", function(req, res){
     loggedIn: req.isAuthenticated(),
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
     //This name is coming from the database. 
-    name: req.user.name
+    //name: req.user.name
   }; 
-  res.render("partials/index2", resObject);
+  res.render("partials/index2");
 });
 
 //Route to activities page
