@@ -11,7 +11,7 @@ router.get("/", function(req, res){
   // }
   // res.render("index", user);
 
-  res.render("partials/404");
+   res.render("partials/404");
 
 });
 
