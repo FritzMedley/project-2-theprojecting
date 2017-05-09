@@ -25,6 +25,9 @@ router.post("/api/events", function(req, res) {
     res.json([]); 
   });
 });
+
+
+
 // DELETE route for deleting posts
 // router.delete("/api/events/:id", function(req, res) {
 //   db.Event.destroy({

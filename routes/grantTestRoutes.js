@@ -17,8 +17,8 @@ router.get("/login", function(req, res){
 
 //submit local log in credientials
 router.post('/login',
-  passport.authenticate('local', { successRedirect: '/test/success',
-                                   failureRedirect: '/test/login',
+  passport.authenticate('local', { successRedirect: '/myaccount',
+                                   failureRedirect: '/createuser',
                                    failureFlash: true })
 );
 
