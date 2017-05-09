@@ -54,6 +54,7 @@ var htmlRoutes = require("./routes/htmlRoutes.js");
 var loginRoutes = require("./routes/loginRoutes.js");
 var apiRoutes = require("./routes/apiRoutes.js");
 var grantTestRoutes = require("./routes/grantTestRoutes.js");
+var eventRoutes = require("./routes/eventRoutes.js");
 
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
