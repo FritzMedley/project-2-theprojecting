@@ -124,7 +124,7 @@ router.post("/createevent", function(req, res){
       numAttendees: req.body.numAttendees,
       category: req.body.category,
       location: req.body.location,
-      startTime: req.body.startTime, 
+      startTime: req.body.startTime,
       endTime: req.body.endTime,
       date: req.body.month + " " + req.body.day + " , " + req.body.year,
       creatorId: req.user.id,
