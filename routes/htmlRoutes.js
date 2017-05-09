@@ -25,7 +25,7 @@ router.get("/activities", function(req, res){
   var resObject = {
     loggedIn: req.isAuthenticated()
   }
-  
+
 	res.render("partials/activities", resObject);
 });
 
@@ -63,7 +63,7 @@ router.post("/createaccount", function(req, res){
   if(req.isAuthenticated()) {
     res.redirect("/myaccount");
   }
-  //else creates an account for the user using the data that he/she passes in. 
+  //else creates an account for the user using the data that he/she passes in.
   else {
     var newUser = {
       name: req.body.username,
@@ -73,10 +73,10 @@ router.post("/createaccount", function(req, res){
   };
     db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
       if(dbUsers.length > 0){
-       var errHandler = { 
-         err: "The email is already taken. Please try another email.", 
+       var errHandler = {
+         err: "The email is already taken. Please try another email.",
          name: req.body.username
-      } 
+      }
       return res.render("./skeleton/createuser", errHandler);
     } else {
       //user created if email isn't taken
@@ -94,10 +94,8 @@ router.get("/myaccount", function(req, res){
     var userInfo = {
       name: req.user.name,
       email: req.user.email
-    }; 
-    res.render("./skeleton/partial1", userInfo);
     };
-
+    res.render("./skeleton/partial1", userInfo);
   }
   else {
     res.redirect("/login");
@@ -158,7 +156,7 @@ router.post("/createaccount", function(req, res){
        var errHandler = {
          err: "The email is already taken. Please try another email.",
          name: req.body.username
-      } 
+      }
       return res.render("./skeleton/createuser", errHandler);
 
       }
