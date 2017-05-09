@@ -11,9 +11,10 @@ router.get("/", function(req, res){
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
 
     //This name is coming from the database.
-    // name: req.user.name
+    user: req.user
   };
-  res.render("partials/index2", resObject);
+  res.render("partials/index2");
+
 });
 
 //Route to activities page
@@ -89,7 +90,7 @@ router.post("/createevent", function(req, res){
       name: req.body.name,
       numAttendees: req.body.numAttendees,
       category: req.body.category,
-      UserId: req.user.id,
+      creatorId: req.user.id,
     };
     db.Event.create(newEvent).then(function(dbEvent){
       dbEvent.addUser(req.user.id);
