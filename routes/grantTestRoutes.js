@@ -14,7 +14,7 @@ var router = express.Router();
 //     res.render("./skeleton/login");
 //   }
 // });
-
+  
 // //submit local log in credientials
 // router.post('/login',
 //   passport.authenticate('local', { successRedirect: '/test/success',
@@ -82,7 +82,7 @@ var router = express.Router();
 //   req.session.destroy(function(){
 //     res.redirect('/');
 //   });
-  
+
 // });
 
 // //display successfuly login via any method
