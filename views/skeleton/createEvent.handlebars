@@ -2,9 +2,15 @@
 <h2>{{name}}</h2>
 <h2>{{email}}</h2>
 
-{{> googleMap}}
+{{> googleMap2}}
 
-<form action="/createEvent", method="POST">
+<input type="text" id="maps-location" name="location"/><br>
+<div id="info-box">
+</div>
+
+<form id="create-event-form" action="/createEvent", method="POST">
+  <label for="location"><h3>Location?</h3></label>
+  <input type="text" name="location"/><br>
   <label for="name"><h3>Event Name</h3></label>
   <input type="text" name="name"/><br>
   <label for="description"><h3>Event Description</h3></label>
