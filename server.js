@@ -60,7 +60,7 @@ app.use(loginRoutes);
 app.use(apiRoutes);
 // app.use("/test", grantTestRoutes);
 
-//This connects to the file where our models are associated
+//This connects to the file where our models are associated (for testing)
 require("./config/dbassociate.js")();
 
 db.sequelize.sync({force:true}).then(function(){

@@ -9,6 +9,7 @@ router.get("/", function(req, res){
   var resObject = {
     loggedIn: req.isAuthenticated(),
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
+
     //This name is coming from the database.
     // name: req.user.name
   };
@@ -32,7 +33,6 @@ router.get("/login", function(req, res){
     res.render("./skeleton/login");
   }
 });
-
 
 //submit local log in credientials
 router.post('/login',
@@ -69,15 +69,15 @@ router.get("/myaccount", function(req, res){
 });
 
 router.get("/createevent", function(req, res) {
-  if(req.isAuthenticated()) {
+  // if(req.isAuthenticated()) {
 	  res.render("partials/createevent");
     // Grant's code JIC we need it for handlebars
     // res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email}
-  }
-  else {
-    res.redirect("/login");
+  //}
+  // else {
+    //res.redirect("/login");
 
-  }
+  //}
 });
 
 router.post("/createevent", function(req, res){
@@ -189,11 +189,11 @@ router.get('/logout', function(req, res) {
 });
 
 
-router.get("/find", function(req, res) {
-	res.render("partials/find");
+router.get("/findevent", function(req, res) {
+	res.render("partials/findevent");
 });
 
-router.post("/find", function(req, res) {
+router.post("/findevent", function(req, res) {
   var query = {};
   if (req.body.user_id) {
     query.creatorId = req.body.user_id;

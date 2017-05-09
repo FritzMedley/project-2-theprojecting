@@ -1,0 +1,47 @@
+.events-create h1 {
+    text-align: center; 
+}
+
+.events-create p {
+    margin: 40px;
+}
+
+.form-container {
+    /*text-align: center; */
+    margin: 10px; 
+    border:  rgba(212, 68, 87, 0.9) solid 5px;
+}
+
+.form-container input {
+    text-align: center;
+}
+
+.form-group {
+    margin-left: 30%; 
+    margin-right: 30%;
+}
+
+.btn-storer {
+    text-align: center;
+    margin: 0px;
+}
+
+.btn-primary {
+    text-align: center;
+    margin: 50px;
+}
+
+.dateList li {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 25%;
+}
+
+.timeList li {
+    display:inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 40%;
+}
+
