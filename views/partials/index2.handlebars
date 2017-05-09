@@ -13,7 +13,7 @@
 	<title>Vidi Veni</title>
 </head>
 <body>
-	<header class="cd-header">
+	<!-- <header class="cd-header">
 		<div id="cd-logo"><a href="#0"><img src="../images/v_icons/v.png" alt="Logo" id="logoImage"></a></div>
 
 		<nav class="cd-primary-nav">
@@ -22,7 +22,11 @@
 				<li><a href="/activities">Activities</a></li>
 				<li><a href="/account">Account</a></li>
 			</ul>
-		</nav> <!-- .cd-primary-nav -->
+		</nav>
+	</header> -->
+
+	<header class="cd-header">
+	{{> navbar}}
 	</header>
 
 	<section class="cd-hero">
@@ -110,6 +114,8 @@
 		<button><a href="#0" class="cd-btn">Get Started</a></button>
 	</main> <!-- .cd-main-content -->
 
+{{> account}}
+<div>{{> footer}}</div>
 <script src="./js/jquery-2.1.1.js"></script>
 <script src="./js/hero.js"></script><!-- Resource jQuery -->
 </body>
