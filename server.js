@@ -60,8 +60,6 @@ app.use(loginRoutes);
 app.use(apiRoutes);
 // app.use("/test", grantTestRoutes);
 
-//This connects to the file where our models are associated
-require("./config/dbassociate.js")();
 
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
