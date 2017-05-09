@@ -1,6 +1,9 @@
 <head> 
+
 <link href="./css/create.css" rel="stylesheet">
+
 </head>
+<body>
 <div class="events-create col-md-12"> 
     <h1>Create an Event</h1>
     <hr>
@@ -11,11 +14,11 @@ add the a description of the event, the time and location so that your attendees
   <form id="createForm" action="/createEvent" method="POST">
   <div class="form-group event-field">
     <label for="eventName">Event Name:</label>
-    <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="name">
+    <input type="name" class="form-control" id="eventName" aria-describedby="name" placeholder="name">
   </div>
   <div class="form-group event-field">
     <label for="eventLocation">Location:</label>
-    <input type="name" class="form-control" id="even tLocation" placeholder="Austin, TX">
+    <input type="name" class="form-control" id="eventLocation" placeholder="Austin, TX">
   </div>
   <div class="form-group event-field">
     <label for="eventAttendees">Number of Attendees:</label>
@@ -24,7 +27,7 @@ add the a description of the event, the time and location so that your attendees
    <div class="form-group event-field">
     <label for="eventDate">Date:</label>
     <ul class="dateList">
-     <li> <select class="form-control" id="exampleSelect1" place-holder="Month">
+     <li> <select class="form-control" id="eventMonth" place-holder="Month">
         <option>January</option>
         <option>February</option>
         <option>March</option>
@@ -38,7 +41,7 @@ add the a description of the event, the time and location so that your attendees
         <option>November</option>
         <option>December</option>
       </select></li>
-      <li> <select class="form-control" id="exampleSelect1">        
+      <li> <select class="form-control" id="eventDay">        
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -71,7 +74,7 @@ add the a description of the event, the time and location so that your attendees
         <option>30</option>
         <option>31</option>
       </select></li>
-      <li> <select class="form-control" id="exampleSelect1">
+      <li> <select class="form-control" id="eventYear">
         <option>2017</option>
         <option>2018</option>
         <option>2019</option>
@@ -84,7 +87,7 @@ add the a description of the event, the time and location so that your attendees
   </div>
   <div class="form-group event-field">
     <label for="eventCategory">Category:</label>
-    <select class="form-control" id="exampleSelect1">
+    <select class="form-control" id="eventCategory">
       <option>Music</option>
       <option>Sports</option>
       <option>Education</option>
@@ -97,8 +100,8 @@ add the a description of the event, the time and location so that your attendees
   </div>
    <div class="form-group event-field">
   <ul class="timeList">
-    <li><label for="eventstartTime">Start Time:</label>
-    <select class="form-control" id="exampleSelect1">
+    <li><label for="eventStartTime">Start Time:</label>
+    <select class="form-control" id="eventStartTime">
       <option>12:00AM</option>
       <option>12:30AM</option>
       <option>1:00AM</option>
@@ -148,8 +151,8 @@ add the a description of the event, the time and location so that your attendees
       <option>11:30PM</option>
     </select>
     </li>
-    <li><label for="eventstartTime">End Time</label>
-    <select class="form-control" id="exampleSelect1">
+    <li><label for="eventEndTime">End Time</label>
+    <select class="form-control" id="eventEndTime">
       <option>12:00AM</option>
       <option>12:30AM</option>
       <option>1:00AM</option>
@@ -207,38 +210,35 @@ add the a description of the event, the time and location so that your attendees
   </div>
   <div class="form-group event-field">
     <label for="exampleTextarea">Description</label>
-    <textarea class="form-control" id="description" rows="3"></textarea>
+    <textarea class="form-control" id="eventDescription" rows="3"></textarea>
   </div>
   <br>
   <div class="btn-storer">
-  <button type="submit" class="btn btn-primary">Create A Table</button>
+  <button type="submit" id="submitButton" class="btn btn-primary">Create A Table</button>
   </div>
 </form>
 </div>
 </div>
 
+<script> 
+$("#submitButton").on("click", function(e){
+  e.preventDefault();
+  var reqObject = {}
+  
+  reqObject.name = $("#eventName").val().trim();
+  reqObject.category = $("#eventCategory").val().trim(); 
+  reqObject.location = $("#eventLocation").val().trim();
+  reqObject.startTime = $("#eventStartTime").val().trim();
+  reqObject.endTime = $("#eventEndTime").val().trim();
+  reqObject.description = $("#eventDescription").val().trim();
+  reqObject.month = $("#eventMonth").val().trim();
+  reqObject.day = $("#eventDay").val().trim();
+  reqObject.year = $("#eventYear").val().trim();
+  console.log(reqObject);
 
+  $.post("createevent", reqObject, alert("Item successfully saved!"));
+  
+});
+</script>
 
-      <!---A bunch input tags that the suer passes in storing basically 
-      The name of event 
-      Its location 
-      Category Drop Down 
-      Time & Date of the Event 
-      Number of Attendees 
-      Description
-      if(description) 
-        "Search for the parameters passed in from the search bar in the description 
-        if there's a match, return that event 
-      
-       --> 
-
-
-       	{{!--<div class="col-md-6 col-md-offset-3 jumbotron">
-        <h1>This is where one of the tables will load.</h1>
-       	</div>
-    </div>
-  <span>Location: </span><input id="location" type="text" name="search" placeholder="Austin, TX">
-  <span>Category: </span><input id="category" type="text" name="search" placeholder="Austin, TX">
-  <span>Date: </span><input id="date" type="text" name="search" placeholder="Austin, TX">
-  <span>Time: </span><input id="time" type="text" name="search" placeholder="Austin, TX">
-</div>--}}
+</body>

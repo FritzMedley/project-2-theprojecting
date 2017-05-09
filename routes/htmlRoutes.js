@@ -83,11 +83,16 @@ router.post("/createevent", function(req, res){
   if(!req.isAuthenticated())
     res.redirect("/login");
   else {
+    console.log(req.body);
     var newEvent = {
       description: req.body.description,
       name: req.body.name,
       numAttendees: req.body.numAttendees,
       category: req.body.category,
+      location: req.body.location,
+      startTime: req.body.startTime, 
+      endTime: req.body.endTime,
+      date: req.body.month + " " + req.body.day + " , " + req.body.year,
       creatorId: req.user.id,
     };
     db.Event.create(newEvent).then(function(dbEvent){
