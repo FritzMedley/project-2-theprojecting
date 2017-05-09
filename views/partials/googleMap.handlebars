@@ -1,0 +1,39 @@
+<style>
+    #map {
+      height: 400px;
+      width: 500px;
+    }
+</style>
+<div id="map"></div>
+
+<script type="text/javascript">
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+  }
+
+  $("#map").
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2X7T4HEj2LSuGNacjtQgrOnuSkaemMRA&callback=initMap"
+    async defer></script>
+
+
+
+  {{!--https://www.google.com/maps/embed/v1/MODE?key=YOUR_API_KEY&parameters
+  Where:
+api key = AIzaSyB2X7T4HEj2LSuGNacjtQgrOnuSkaemMRA
+{MODE} is one of place, directions, search, view, or streetview.
+{YOUR_API_KEY} is your free API key.
+parameters include optional parameters, as well as mode-specific parameters.--}}
+
+{{!--<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/search?key=AIzaSyB2X7T4HEj2LSuGNacjtQgrOnuSkaemMRA
+    &q=78653" allowfullscreen>
+</iframe>--}}
