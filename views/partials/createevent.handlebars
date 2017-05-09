@@ -17,7 +17,7 @@
 add the a description of the event, the time and location so that your attendees know what to look forward to!</p>
 </div>
 <div class="form-container">
-  <form id="createForm" action="/createEvent" method="POST">
+  <form id="createForm" action="/createevent" method="POST">
   <div class="form-group event-field">
     <label for="eventName">Event Name:</label>
     <input type="name" class="form-control" id="eventName" aria-describedby="name" placeholder="name">
@@ -245,6 +245,6 @@ $("#submitButton").on("click", function(e){
   $.post("createevent", reqObject, alert("Item successfully saved!"));
   
 });
-</script>
+</script> 
 
 </body>

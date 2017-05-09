@@ -6,22 +6,24 @@ var db = require("../models");
 //Route to activities page
 router.get("/activities", function(req, res){
   //if(req.isAuthenticated())
-  var resObject = {
-    loggedIn: req.isAuthenticated()
-  }
-  
-	res.render("partials/activities", resObject);
+  // var resObject = {
+  //   loggedIn: req.isAuthenticated()
+  // }
+  db.Event.findAll({limit: 10}).then(function(dbEvents){
+  	var hbsObject = {event: dbEvents};
+  	res.render("./partials/activities", hbsObject);
+  });
 });
 
 router.get("/createevent", function(req, res) {
-  // if(req.isAuthenticated()) {
-	  res.render("partials/createevent");
+  if(req.isAuthenticated()) {
+	  res.render("./partials/createevent");
     // Grant's code JIC we need it for handlebars
     // res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email}
-  //}
-  // else {
-    //res.redirect("/login");
-  //}
+  }
+  else {
+    res.redirect("/login");
+  }
 });
 
 router.post("/createevent", function(req, res){
@@ -48,3 +50,27 @@ router.post("/createevent", function(req, res){
     });
   }
 });
+
+router.get("/event", function(req, res){
+  if(req.query.id) {
+     db.Event.findOne({
+        where: {
+           id: req.query.id
+        }
+    }).done(function(dbEvent){
+     if(dbEvent === null) {
+      res.redirect("/findactivities")
+     } else {
+      res.render("/singleevent", dbEvent)
+     }
+    }, function(err){
+        //findOne() may return null if the id doesn't exist in DB
+        res.redirect("/findactivities");
+    });
+  }
+  else {
+    res.redirect("/findactivities");
+  }
+});
+
+module.exports = router;

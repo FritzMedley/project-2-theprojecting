@@ -6,85 +6,85 @@ var db = require("../models");
 
 var router = express.Router();
 
-//display login in page
-router.get("/login", function(req, res){
-  if(req.isAuthenticated())
-    res.send("You are already logged in!");
-  else {
-    res.render("./skeleton/login");
-  }
-});
-
-//submit local log in credientials
-router.post('/login',
-  passport.authenticate('local', { successRedirect: '/myaccount',
-                                   failureRedirect: '/createuser',
-                                   failureFlash: true })
-);
-
-//display create user page
-router.get("/createUser", function(req, res){
-  res.render("./skeleton/createUser");
-});
-
-//submit create user page, only used if not logged in already or via google
-router.post("/createUser", function(req, res){
-  var newUser = {
-    name: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    credType: "local"
-  };
-  db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
-    if(dbUsers.length > 0){
-      return res.send("Sorry, that email is taken already");
-    } else {
-      db.User.create(newUser).done(function(dbUser){
-        return res.send("Account made");
-      });
-    }
-  });
-});
-
-router.get("/createEvent", function(req, res){
-  if(!req.isAuthenticated())
-    res.redirect("/test/login");
-  else {
-    res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email});
-  }
-});
-
-router.post("/createEvent", function(req, res){
-  if(!req.isAuthenticated())
-    res.redirect("/login");
-  else {
-    var newEvent = {
-      description: req.body.description,
-      name: req.body.name,
-      numAttendees: req.body.numAttendees,
-      category: req.body.category,
-      UserId: req.user.id,
-    };
-
-    db.Event.create(newEvent, {
-
-    }).then(function(dbEvent){
-      dbEvent.addUser(req.user.id);
-      res.send(dbEvent);
-    });
-  }
-});
-
-
-// "display" logout page, this logous you out, destorys the session, and redirects to the homepage
-router.get('/logout', function(req, res) {
-  req.logOut();
-  req.session.destroy(function(){
-    res.redirect('/');
-
-  });
-});// //display login in page
+// //display login in page
 // router.get("/login", function(req, res){
+//   if(req.isAuthenticated())
+//     res.send("You are already logged in!");
+//   else {
+//     res.render("./skeleton/login");
+//   }
+// });
+
+// //submit local log in credientials
+// router.post('/login',
+//   passport.authenticate('local', { successRedirect: '/myaccount',
+//                                    failureRedirect: '/createuser',
+//                                    failureFlash: true })
+// );
+
+// //display create user page
+// router.get("/createUser", function(req, res){
+//   res.render("./skeleton/createUser");
+// });
+
+// //submit create user page, only used if not logged in already or via google
+// router.post("/createUser", function(req, res){
+//   var newUser = {
+//     name: req.body.username,
+//     email: req.body.email,
+//     password: req.body.password,
+//     credType: "local"
+//   };
+//   db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
+//     if(dbUsers.length > 0){
+//       return res.send("Sorry, that email is taken already");
+//     } else {
+//       db.User.create(newUser).done(function(dbUser){
+//         return res.send("Account made");
+//       });
+//     }
+//   });
+// });
+
+// router.get("/createEvent", function(req, res){
+//   if(!req.isAuthenticated())
+//     res.redirect("/login");
+//   else {
+//     res.render("./createevent", {name:req.user.name, email:req.user.email});
+//   }
+// });
+
+// router.post("/createEvent", function(req, res){
+//   if(!req.isAuthenticated())
+//     res.redirect("/login");
+//   else {
+//     var newEvent = {
+//       description: req.body.description,
+//       name: req.body.name,
+//       numAttendees: req.body.numAttendees,
+//       category: req.body.category,
+//       UserId: req.user.id,
+//     };
+
+//     db.Event.create(newEvent, {
+
+//     }).then(function(dbEvent){
+//       dbEvent.addUser(req.user.id);
+//       res.send(dbEvent);
+//     });
+//   }
+// });
+
+
+// // "display" logout page, this logous you out, destorys the session, and redirects to the homepage
+// router.get('/logout', function(req, res) {
+//   req.logOut();
+//   req.session.destroy(function(){
+//     res.redirect('/');
+
+//   });
+// });// //display login in page
+// // router.get("/login", function(req, res){
 //   if(req.isAuthenticated())
 //     res.send("You are already logged in!");
 //   else {
@@ -199,9 +199,9 @@ router.get('/logout', function(req, res) {
 //   }
 // });
 
-router.get("/test/createevent", function(req, res) {
-  res.render("./skeleton/createEvent");
+// router.get("/test/createevent", function(req, res) {
+//   res.render("./skeleton/createEvent");
 
-});
+// });
 
 module.exports = router;
