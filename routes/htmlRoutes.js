@@ -94,17 +94,11 @@ router.get("/myaccount", function(req, res) {
     var userInfo = {
       name: req.user.name,
       email: req.user.email
-<<<<<<< HEAD
-    };
-    res.render("./skeleton/partial1", userInfo);
-  }
-  else {
-=======
     }
     res.render("./skeleton/partial1", userInfo);
     }
     else {
->>>>>>> dev
+
     res.redirect("/login");
     };
 });
