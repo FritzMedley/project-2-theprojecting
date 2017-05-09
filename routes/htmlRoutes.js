@@ -10,7 +10,7 @@ router.get("/", function(req, res){
     loggedIn: req.isAuthenticated(),
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
     //This name is coming from the database. 
-    name: req.user.name
+    user: req.user
   }; 
   res.render("partials/index2", resObject);
 });
@@ -70,7 +70,7 @@ router.get("/myaccount", function(req, res){
 
 router.get("/createevent", function(req, res) {
   if(req.isAuthenticated()) {
-	  res.render("partials/createevent");
+	  res.render("skeleton/createEvent");
     // Grant's code JIC we need it for handlebars 
     // res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email}
   }
@@ -89,7 +89,7 @@ router.post("/createevent", function(req, res){
       name: req.body.name,
       numAttendees: req.body.numAttendees,
       category: req.body.category,
-      UserId: req.user.id,
+      creatorId: req.user.id,
     };
     db.Event.create(newEvent).then(function(dbEvent){
       dbEvent.addUser(req.user.id);
