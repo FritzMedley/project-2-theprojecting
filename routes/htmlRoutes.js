@@ -9,15 +9,17 @@ router.get("/", function(req, res){
   var resObject = {
     loggedIn: req.isAuthenticated(),
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
-    //This name is coming from the database. 
+
+    //This name is coming from the database.
     user: req.user
-  }; 
+  };
   res.render("partials/index2");
+
 });
 
 //Route to activities page
 router.get("/activities", function(req, res){
-  //if(req.isAuthenticated()) 
+  //if(req.isAuthenticated())
   var resObject = {
     loggedIn: req.isAuthenticated()
   }
@@ -27,7 +29,7 @@ router.get("/activities", function(req, res){
 //Route to login page
 router.get("/login", function(req, res){
   if(req.isAuthenticated())
-    res.redirect("/myaccount"); 
+    res.redirect("/myaccount");
   else {
     res.render("./skeleton/login");
   }
@@ -50,16 +52,16 @@ router.get("/createaccount", function(req, res){
   else {
     res.render("/createaccount");
   }
- 
+
 });
 
 router.get("/myaccount", function(req, res){
   //Custom object that loads indivial user account page
   if(req.isAuthenticated()) {
     var userInfo = {
-      name: req.user.name, 
+      name: req.user.name,
       email: req.user.email
-    }; 
+    };
     res.render("/myaccount", userInfo);
   }
   else {
@@ -70,7 +72,7 @@ router.get("/myaccount", function(req, res){
 router.get("/createevent", function(req, res) {
   // if(req.isAuthenticated()) {
 	  res.render("partials/createevent");
-    // Grant's code JIC we need it for handlebars 
+    // Grant's code JIC we need it for handlebars
     // res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email}
   //}
   // else {
@@ -97,7 +99,7 @@ router.post("/createevent", function(req, res){
     };
     db.Event.create(newEvent).then(function(dbEvent){
       dbEvent.addUser(req.user.id);
-      //after the event created, redirect the 
+      //after the event created, redirect the
       //user to an individual event page labeled by ID in database
       res.redirect("/event?id="+ dbEvent.id);
     });
@@ -109,7 +111,7 @@ router.post("/createaccount", function(req, res){
   if(req.isAuthenticated()) {
     res.redirect("/myaccount");
   }
-  //else creates an account for the user using the data that he/she passes in. 
+  //else creates an account for the user using the data that he/she passes in.
   else {
     var newUser = {
       name: req.body.username,
@@ -119,10 +121,10 @@ router.post("/createaccount", function(req, res){
   };
     db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
       if(dbUsers.length > 0){
-       var errHandler = { 
-         err: "The email is already taken. Please try another email.", 
+       var errHandler = {
+         err: "The email is already taken. Please try another email.",
          name: req.body.username
-      } 
+      }
       return res.render("/createaccount", errHandler);
     } else {
       //user created if email isn't taken
@@ -136,8 +138,8 @@ router.post("/createaccount", function(req, res){
 
 router.get("/createdevents", function(req, res){
   if(req.isAuthenticated()) {
-    db.Event.findAll({where: 
-      {creatorid: req.body.id}     
+    db.Event.findAll({where:
+      {creatorid: req.body.id}
     }).done(function(dbEvents){
       res.render("/userevents", dbEvents);
     });
@@ -149,10 +151,10 @@ router.get("/createdevents", function(req, res){
 
 router.get("/joinedevents", function(req, res){
   //if(req.isAuthenticated()) {
-    db.Event.findAll({where: 
-      {Userid: req.body.id}      
-    , 
-    include: [db.User]    
+    db.Event.findAll({where:
+      {Userid: req.body.id}
+    ,
+    include: [db.User]
     }).done(function(dbEvents){
       res.render("/userevents", dbEvents);
     });
@@ -164,7 +166,7 @@ router.get("/joinedevents", function(req, res){
 
 router.get("/event", function(req, res){
   if(req.query.id) {
-     db.Event.findOne({ 
+     db.Event.findOne({
         where: {
            id: req.query.id
         }
@@ -176,7 +178,7 @@ router.get("/event", function(req, res){
      }
     }, function(err){
         //findOne() may return null if the id doesn't exist in DB
-        res.redirect("/findactivities"); 
+        res.redirect("/findactivities");
     });
   }
   else {
@@ -189,7 +191,7 @@ router.get('/logout', function(req, res) {
   req.logOut();
     req.session.destroy(function(){
     res.redirect('/');
-  }); 
+  });
 });
 
 
