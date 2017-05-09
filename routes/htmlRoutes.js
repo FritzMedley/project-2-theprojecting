@@ -88,20 +88,18 @@ router.post("/createaccount", function(req, res){
   }
 });
 
-router.get("/myaccount", function(req, res){
+router.get("/myaccount", function(req, res) {
   //Custom object that loads indivial user account page
   if(req.isAuthenticated()) {
     var userInfo = {
       name: req.user.name,
       email: req.user.email
-    }; 
+    }
     res.render("./skeleton/partial1", userInfo);
-    };
-
-  }
-  else {
+    }
+    else {
     res.redirect("/login");
-  }
+    };
 });
 
 router.get("/createevent", function(req, res) {
@@ -154,16 +152,15 @@ router.post("/createaccount", function(req, res){
       credType: "local"
   };
     db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
-      if(dbUsers.length > 0){
+      if(dbUsers.length > 0) {
        var errHandler = {
          err: "The email is already taken. Please try another email.",
          name: req.body.username
       } 
       return res.render("./skeleton/createuser", errHandler);
-
       }
       //return res.render("/createaccount", errHandler);
-    } else {
+    else {
       //user created if email isn't taken
         db.User.create(newUser).done(function(dbUser){
           return res.redirect("/login");
