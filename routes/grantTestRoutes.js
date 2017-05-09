@@ -123,6 +123,7 @@ var router = express.Router();
 
 router.get("/test/createevent", function(req, res) {
   res.render("./skeleton/createEvent");
+
 });
 
 module.exports = router;

@@ -6,31 +6,31 @@ module.exports = function(sequelize, DataTypes){
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     numAttendees: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     startTime: {
-      type: DataTypes.TIME,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true
     },
     endTime: {  
-      type: DataTypes.TIME,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true
     },
     date: {
-      type: DataTypes.DATE,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: true
     },
     image: {
       type: DataTypes.STRING,
