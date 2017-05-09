@@ -81,8 +81,9 @@ router.get('/logout', function(req, res) {
   req.logOut();
   req.session.destroy(function(){
     res.redirect('/');
+
   });
-// //display login in page
+});// //display login in page
 // router.get("/login", function(req, res){
 //   if(req.isAuthenticated())
 //     res.send("You are already logged in!");
@@ -158,7 +159,6 @@ router.get('/logout', function(req, res) {
 //   req.session.destroy(function(){
 //     res.redirect('/');
 //   });
-
 // });
 
 // //display successfuly login via any method
