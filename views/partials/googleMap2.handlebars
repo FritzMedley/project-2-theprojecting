@@ -4,6 +4,9 @@
       width: 500px;
     }
     #maps-location {
+      width: 300px;
+    }
+    input[name=location] {
       width: 400px;
     }
 </style>
@@ -13,21 +16,30 @@
   var map;
   var service;
   var geocoder;
+  var infoWindow;
+  var infoWindowContent;
+  var mapSearchInput;
+  var searchBox;
+  var infoBoxDiv;
 
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
-      zoom: 8
+      center: new google.maps.LatLng(39, -95),
+      zoom: 3
     });
+
     geocoder = new google.maps.Geocoder();
-
     service = new google.maps.places.PlacesService(map);
+    //var clickHandler = new MyClickHandler(map, service);
+    infoBoxDiv = document.getElementById("info-box");
+    infoWindow = new google.maps.InfoWindow;
+    infoWindowContent = infoBoxDiv;
+    infoWindow.setContent(infoWindowContent);
 
-    var input = document.getElementById('maps-location');
-    var info = document.getElementById("info-box");
-    var searchBox = new google.maps.places.SearchBox(input);
-    var infoBox = new google.maps.places.InfoBox(infoBox)
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    mapSearchInput = document.getElementById('maps-location');
+    searchBox = new google.maps.places.SearchBox(mapSearchInput);
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(mapSearchInput);
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
     });
@@ -49,6 +61,7 @@
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       places.forEach(function(place) {
+        //console.log(place);
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
           return;
@@ -61,13 +74,29 @@
           scaledSize: new google.maps.Size(25, 25)
         };
 
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
+        var marker = new google.maps.Marker({
           map: map,
-          icon: icon,
           title: place.name,
-          position: place.geometry.location
-        }));
+          position: place.geometry.location,
+        });
+        
+        marker.addListener('click', function(mark) {
+          mark.stop();
+          $("#create-event-form input[name=location]").val(place.name+", "+place.formatted_address);
+          $("#create-event-form input[name=placeId]").val(place.id);
+          $("#create-event-form input[name=lnglat]").val(place.geometry.location);
+
+          console.log(place);
+          infoWindow.close();
+          infoWindow.setPosition(place.geometry.location);
+          $(infoBoxDiv).children(".place-name").text(place.name);
+          $(infoBoxDiv).children(".place-address").text(place.formatted_address);
+          infoWindow.open(map);
+
+        });
+
+        // Create a marker for each place.
+        markers.push(marker);
 
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
@@ -78,24 +107,14 @@
       });
       map.fitBounds(bounds);
     });
+
+
+    $("#create-event-form input[name=location]").on("keyup", function(event){
+      $("#maps-location").val($(this).val());
+    });
 }
 
-function MyClickHandler(map, service){
-  this.map = map;
-  this.service = service;
-};
  
-function searchCallback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      var place = results[i];
-      createMarker(results[i]);
-    }
-  }
-}
-
-
-  
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2X7T4HEj2LSuGNacjtQgrOnuSkaemMRA&callback=initMap&libraries=places"

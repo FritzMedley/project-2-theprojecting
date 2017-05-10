@@ -1,18 +1,20 @@
 <h1>Create Event</h1>
-<h2>{{name}}</h2>
-<h2>{{email}}</h2>
+<h2>{{user.name}}</h2>
+<h2>{{user.email}}</h2>
 
 {{> googleMap2}}
 
 <input type="text" id="maps-location" name="location"/><br>
 <div id="info-box">
+    <p class="place-name"></p>
+    <p class="place-address"></p>
 </div>
 
 <form id="create-event-form" action="/createEvent", method="POST">
-  <label for="location"><h3>Location?</h3></label>
-  <input type="text" name="location"/><br>
   <label for="name"><h3>Event Name</h3></label>
   <input type="text" name="name"/><br>
+  <label for="location"><h3>Location?</h3></label>
+  <input type="text" name="location"/><br>
   <label for="description"><h3>Event Description</h3></label>
   <input type="text" name="description"/><br>
   <label for="numAttendees"><h3>Free slots?</h3></label>
@@ -20,4 +22,7 @@
   <label for="category"><h3>Category</h3></label>
   <input type="text" name="category"/><br>
   <button type="submit">Submit</button>
+
+  <input type="hidden" name="placeId" value=""/>
+  <input type="hidden" name="lnglat" value=""/>
 </form>
