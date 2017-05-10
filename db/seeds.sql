@@ -1,4 +1,4 @@
-insert into events (name, location, category) values (
+insert into events (description, location, category) values (
 	"Soccer Game", "Austin", "Sports"
 );
 

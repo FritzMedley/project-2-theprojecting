@@ -17,7 +17,7 @@
 add the a description of the event, the time and location so that your attendees know what to look forward to!</p>
 </div>
 <div class="form-container">
-  <form id="createForm" action="/createevent" method="POST">
+  <form id="createForm" action="/event?id=default" method="GET">
   <div class="form-group event-field">
     <label for="eventName">Event Name:</label>
     <input type="name" class="form-control" id="eventName" aria-describedby="name" placeholder="name">
@@ -228,7 +228,7 @@ add the a description of the event, the time and location so that your attendees
 
 <script> 
 $("#submitButton").on("click", function(e){
-  e.preventDefault();
+ // e.preventDefault();
   var reqObject = {}
   
   reqObject.name = $("#eventName").val().trim();
@@ -240,9 +240,9 @@ $("#submitButton").on("click", function(e){
   reqObject.month = $("#eventMonth").val().trim();
   reqObject.day = $("#eventDay").val().trim();
   reqObject.year = $("#eventYear").val().trim();
-  console.log(reqObject);
+ // console.log(reqObject);
 
-  $.post("createevent", reqObject, alert("Item successfully saved!"));
+  $.post("createevent", reqObject, alert("This better redirect"));
   
 });
 </script> 

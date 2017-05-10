@@ -43,34 +43,46 @@ router.post("/createevent", function(req, res){
       creatorId: req.user.id,
     };
     db.Event.create(newEvent).then(function(dbEvent){
-      dbEvent.addUser(req.user.id);
+     // dbEvent.addUser(req.user.id);
       //after the event created, redirect the
       //user to an individual event page labeled by ID in database
-      res.redirect("/event?id="+ dbEvent.id);
+      res.redirect("/event?id="+ dbEvent.id);   
     });
   }
 });
 
 router.get("/event", function(req, res){
-  if(req.query.id) {
-     db.Event.findOne({
-        where: {
-           id: req.query.id
-        }
-    }).done(function(dbEvent){
-     if(dbEvent === null) {
-      res.redirect("/findactivities")
-     } else {
-      res.render("/singleevent", dbEvent)
-     }
-    }, function(err){
-        //findOne() may return null if the id doesn't exist in DB
-        res.redirect("/findactivities");
-    });
-  }
-  else {
-    res.redirect("/findactivities");
-  }
-});
+	var hbsObject = {event: res.body}
+
+	res.render("./partials/singleevent", hbsObject)
+
+})
+
+// router.get("/event?", function(req, res){
+//   if(req.query.id !== null) {
+//   	console.log(req.query.id);
+//      db.Event.findOne({
+//         where: {
+//            id: req.query.id
+//         }
+//     }).done(function(dbEvent){
+//      if(dbEvent === null) {
+//      	//console.log("DB-Event is equalling null");
+//       res.redirect("/activities")
+//      } else {
+//      	var hbsObject = {event: dbEvent}
+//      	console.log(hbsObject);
+//       res.render("./partials/singleevent", hbsObject)
+//      }
+//     }, function(err){
+//         if (err) throw err;
+//         res.redirect("/activities");
+//     });
+//   }
+//   else {
+//   	//console.log("This is the one that's happening.")
+//     res.redirect("/activities");
+//   }
+// });
 
 module.exports = router;
