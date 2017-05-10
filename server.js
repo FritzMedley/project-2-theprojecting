@@ -63,6 +63,10 @@ app.use(grantTestRoutes);
 db.sequelize.sync({force:true}).then(function(){
   app.listen(PORT, function(){
     console.log("Server listening on PORT: "+ PORT);
+  });
+  var dummyEvents = require("./config/dummySeeds.js");
+  dummyEvents();
 });
-});
+
+
 

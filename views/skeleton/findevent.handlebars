@@ -1,0 +1,30 @@
+<div class="containter"> 
+    <div class="row"> 
+       	<div class="col-md-6 col-md-offset-3 jumbotron">
+        <h1>This is where one of the tables will load.</h1>
+       	</div>
+    </div>
+
+  <span>Location: </span><input id="location" type="text" name="search" placeholder="Austin, TX">
+  <span>Category: </span><input id="category" type="text" name="search" placeholder="Sports...">
+  <span>Date: </span>
+  <select name="date">
+  <option value="">Volvo</option>
+  <option value="">Saab</option>
+  <option value="">Fiat</option>
+  <option value="audi">Audi</option>
+</select>
+  
+  
+  
+  
+  <input id="date" type="text" name="search" placeholder="May 6 2017..">
+  <span>Time: </span><input id="time" type="text" name="search" placeholder="5PM">
+
+  {{#if results}}
+    {{>test/eventList}}
+  {{/if}}
+  
+
+
+</div>
