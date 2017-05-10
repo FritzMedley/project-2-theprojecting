@@ -101,7 +101,8 @@ Main Components
   padding-left: 5%;
   background: #21272c;
   border-top: 1px solid #333c44;
-  color: #ffffff;
+  /*color: #ffffff;*/
+  color: black;
 }
 @media only screen and (min-width: 768px) {
   .cd-primary-nav {

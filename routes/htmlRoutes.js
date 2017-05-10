@@ -11,9 +11,16 @@ router.get("/", function(req, res){
     loadText: "<h1>Vidi Veni</h1>" + "\n <p>This will be filler text for the home page.</p>",
 
     //This name is coming from the database.
-    user: req.user
+    // user: req.user
   };
-  res.render("partials/index2");
+
+  if (req.user) {
+      resObject.user = req.user;
+      resObject.name = req.user.name;
+      resObject.email = req.user.email;
+  }
+console.log(res.user);
+  res.render("partials/index2", resObject);
 
 });
 
@@ -26,7 +33,13 @@ router.get("/activities", function(req, res){
     loggedIn: req.isAuthenticated()
   }
 
-	res.render("partials/activities", resObject);
+  if (req.user) {
+      resObject.user = req.user;
+      resObject.name = req.user.name;
+      resObject.email = req.user.email;
+  }
+
+  res.render("partials/activities", resObject);
 });
 
 //Route to login page
@@ -58,6 +71,46 @@ router.get("/createaccount", function(req, res){
 
 });
 
+// OG CREATE ACCOUNT
+// router.post("/createaccount", function(req, res){
+//   //checks to see if the user actually has an account and direct them to their page
+//   if(req.isAuthenticated()) {
+//     res.redirect("/myaccount");
+//   }
+//   //else creates an account for the user using the data that he/she passes in.
+//   else {
+//     var newUser = {
+//       name: req.body.username,
+//       email: req.body.email,
+//       password: req.body.password,
+//       credType: "local"
+//   };
+//   console.log('got here 1')
+//     db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
+//       console.log('got here 2')
+//       if(dbUsers.length > 0){
+//         console.log('got here 3')
+//         var errHandler = {
+//           err: "The email is already taken. Please try another email.",
+//           name: req.body.username
+//         }
+//       console.log('got here 4')
+//       return res.render("./skeleton/createuser", errHandler);
+//     } else {
+//       //user created if email isn't taken
+//       console.log('got here 5')
+//         db.User.create(newUser).done(function(dbUser){
+//           return res.redirect("/login");
+//         });
+//         console.log('got here 6')
+//       }
+//     });
+//   }
+// });
+// END OG CREATE ACCOUNT
+
+
+// JOSH'S VERSION OF createaccount
 router.post("/createaccount", function(req, res){
   //checks to see if the user actually has an account and direct them to their page
   if(req.isAuthenticated()) {
@@ -65,37 +118,57 @@ router.post("/createaccount", function(req, res){
   }
   //else creates an account for the user using the data that he/she passes in.
   else {
-    var newUser = {
+    var resObject = {
       name: req.body.username,
       email: req.body.email,
       password: req.body.password,
       credType: "local"
   };
-    db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
+  console.log('got here 1')
+    db.User.findAll({where: {email: resObject.email}}).done(function(dbUsers){
+      console.log('got here 2')
       if(dbUsers.length > 0){
-       var errHandler = {
-         err: "The email is already taken. Please try another email.",
-         name: req.body.username
-      }
+        console.log('got here 3')
+        var errHandler = {
+          err: "The email is already taken. Please try another email.",
+          name: req.body.username
+        }
+      console.log('got here 4')
       return res.render("./skeleton/createuser", errHandler);
     } else {
       //user created if email isn't taken
-        db.User.create(newUser).done(function(dbUser){
+      console.log('got here 5')
+        db.User.create(resObject).done(function(dbUser){
           return res.redirect("/login");
         });
+        console.log('got here 6')
       }
+      console.log('GOTHERE 7')
+      // getting here means the account was created, so can I now set those values for the object?
     });
+    console.log('GOTHERE 8')
   }
 });
+// END JOSH VERSION
 
 router.get("/myaccount", function(req, res) {
   //Custom object that loads indivial user account page
   if(req.isAuthenticated()) {
-    var userInfo = {
-      name: req.user.name,
-      email: req.user.email
+    // var userInfo = {
+    //   name: req.user.name,
+    //   email: req.user.email
+    // }
+    var resObject = {
+      loggedIn: req.isAuthenticated()
     }
-    res.render("./skeleton/partial1", userInfo);
+
+    if (req.user) {
+        resObject.user = req.user;
+        resObject.name = req.user.name;
+        resObject.email = req.user.email;
+    }
+    // res.render("./skeleton/partial1", userInfo);
+    res.render("./partials/myaccount", resObject);
     }
     else {
 
@@ -135,38 +208,6 @@ router.post("/createevent", function(req, res){
       //after the event created, redirect the
       //user to an individual event page labeled by ID in database
       res.redirect("/event?id="+ dbEvent.id);
-    });
-  }
-});
-
-router.post("/createaccount", function(req, res){
-  //checks to see if the user actually has an account and direct them to their page
-  if(req.isAuthenticated()) {
-    res.redirect("/myaccount");
-  }
-  //else creates an account for the user using the data that he/she passes in.
-  else {
-    var newUser = {
-      name: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      credType: "local"
-  };
-    db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
-      if(dbUsers.length > 0) {
-       var errHandler = {
-         err: "The email is already taken. Please try another email.",
-         name: req.body.username
-      }
-      return res.render("./skeleton/createuser", errHandler);
-      }
-      //return res.render("/createaccount", errHandler);
-    else {
-      //user created if email isn't taken
-        db.User.create(newUser).done(function(dbUser){
-          return res.redirect("/login");
-        });
-      }
     });
   }
 });

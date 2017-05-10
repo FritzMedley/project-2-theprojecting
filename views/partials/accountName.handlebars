@@ -1,6 +1,6 @@
 <!-- if logged in, show their name, otherwise show "login" -->
-{{#if authed}}
-  <a href="/activities">{{> name}}</a>
+{{#if loggedIn}}
+  <a href="/myaccount">{{user.name}}</a>
 {{else}}
   <a href="/login">Login</a>
 {{/if}}

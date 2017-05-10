@@ -1,0 +1,25 @@
+{{> navbar  }}
+<link rel="stylesheet" href="./css/herostyle.css">
+<form id="createaccount" action="/createaccount", method="PUT">
+<div class="accountPage">
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">Name</span>
+    <input type="text" class="form-control" value="{{user.name}}" aria-describedby="basic-addon1">
+  </div>
+  <br>
+
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">Email</span>
+    <input type="text" class="form-control" value="{{user.email}}" aria-describedby="basic-addon1">
+  </div>
+  <br>
+
+  <div class="input-group">
+    <span class="input-group-addon" id="basic-addon1">Password</span>
+    <input type="text" class="form-control" value="*********" aria-describedby="basic-addon1">
+  </div>
+  <br>
+
+  <button type="submit">Update</button>
+</div>
+</form>
