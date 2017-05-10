@@ -127,4 +127,13 @@ router.get("/test/createevent", function(req, res) {
 
 });
 
+router.get("/test/findevent", function(req, res) {
+  db.Event.findAll({
+
+  }).then(function(dbEvents){
+    res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
+  });
+
+});
+
 module.exports = router;
