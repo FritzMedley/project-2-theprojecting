@@ -122,7 +122,8 @@ var router = express.Router();
 // });
 
 router.get("/test/createevent", function(req, res) {
-  res.render("./skeleton/createEvent");
+  console.log(req.user);
+  res.render("./skeleton/createEvent", {user:req.user});
 
 });
 
