@@ -136,4 +136,39 @@ router.get("/test/findevent", function(req, res) {
 
 });
 
+router.get("/test/myevents", function(req, res) {
+  db.Event.findAll({
+    include: [{
+      model: db.User}],
+    where: {
+      creatorId: req.user.id
+    }
+  }).then(function(dbEvents){
+    //using findeevents for query testing right now
+    console.log(dbEvents);
+    res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
+  });
+
+});
+
+router.get("/test/joinedevents", function(req, res) {
+  db.Event.findAll({
+    include: [{
+    model: db.User,
+    through: {
+      attributes: ['id'],
+      where: {id: req.user.id}
+    }
+  }],
+    where: {
+      
+    }
+  }).then(function(dbEvents){
+    //using findeevents for query testing right now
+    console.log(dbEvents);
+    res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
+  });
+
+});
+
 module.exports = router;

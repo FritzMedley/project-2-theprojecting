@@ -1,18 +1,27 @@
 <link rel="stylesheet" href="./css/activities.css">	
-<div class="events-title col-md-12"> 
-  <h1>Results:</h1>
-</div>
+<div class="row"> 
+  <div class="events-title col-md-12"> 
+    <h1>Results:</h1>
+  </div>
 
-{{#each results}}
-  <div class="event-list"> 
-    <div class="container">
+  <div class="event-list container"> 
+    {{#each results}}  
+    <div class="row">
       <div class='col-md-4 event-image-container'> 
-        <img src="http://placehold.it/150x100">
+        <img src="{{#if this.image}}{{this.image}}{{else}}http://placehold.it/150x100{{/if}}">
         <div>
-          <h4 id="event-attendees">3 Spots Remaining! </h4><br>
+          <h4 id="event-attendees">{{this.numAttendees}} Spots Remaining! </h4><br>
           <a href="#"><input type="submit" id="joinButton" class="btn btn-primary active" value="Join Event"></a>       
         </div>
       </div>
+      <div class="col-md-6 event-info-container">
+        <h2 id="event-title">{{this.name}}</h2><br>
+        <h2 id="event-location">{{this.location}}</h2>
+        <span id="event-times">Time: {{this.startTime}} - {{this.endTime}}</span><br><span id="event-date">   Date: {{this.date}}</span><br><span id="event-category">   Category: {{this.category}}</span>
+        <hr>
+        <p id="event-description">{{this.description}}</p>
+      </div>
     </div>
+  {{/each}}
   </div>
-{{/each}}
+</div>
