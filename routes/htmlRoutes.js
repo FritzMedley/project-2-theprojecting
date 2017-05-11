@@ -94,56 +94,9 @@ router.get("/myaccount", function(req, res) {
     var userInfo = {
       name: req.user.name,
       email: req.user.email
-<<<<<<< HEAD
     };
     res.render("./skeleton/partial1", userInfo);
   }
-  else {
-=======
-    }
-    res.render("./skeleton/partial1", userInfo);
-    }
-    else {
->>>>>>> dev
-    res.redirect("/login");
-    };
-});
-
-router.get("/createevent", function(req, res) {
-  // if(req.isAuthenticated()) {
-	  res.render("partials/createevent");
-    // Grant's code JIC we need it for handlebars
-    // res.render("./skeleton/createEvent", {name:req.user.name, email:req.user.email}
-  //}
-  // else {
-    //res.redirect("/login");
-  //}
-});
-
-router.post("/createevent", function(req, res){
-  if(!req.isAuthenticated())
-    res.redirect("/login");
-  else {
-    console.log(req.body);
-    var newEvent = {
-      description: req.body.description,
-      name: req.body.name,
-      numAttendees: req.body.numAttendees,
-      category: req.body.category,
-      location: req.body.location,
-      startTime: req.body.startTime,
-      endTime: req.body.endTime,
-      date: req.body.month + " " + req.body.day + " , " + req.body.year,
-      creatorId: req.user.id,
-    };
-    db.Event.create(newEvent).then(function(dbEvent){
-      dbEvent.addUser(req.user.id);
-      //after the event created, redirect the
-      //user to an individual event page labeled by ID in database
-      res.redirect("/event?id="+ dbEvent.id);
-    });
-  }
-});
 
 router.post("/createaccount", function(req, res){
   //checks to see if the user actually has an account and direct them to their page
@@ -167,7 +120,7 @@ router.post("/createaccount", function(req, res){
       return res.render("./skeleton/createuser", errHandler);
       }
       //return res.render("/createaccount", errHandler);
-    else {
+      else {
       //user created if email isn't taken
         db.User.create(newUser).done(function(dbUser){
           return res.redirect("/login");
@@ -203,28 +156,6 @@ router.get("/joinedevents", function(req, res){
   // else {
   //   res.redirect("/login");
   // }
-});
-
-router.get("/event", function(req, res){
-  if(req.query.id) {
-     db.Event.findOne({
-        where: {
-           id: req.query.id
-        }
-    }).done(function(dbEvent){
-     if(dbEvent === null) {
-      res.redirect("/findactivities")
-     } else {
-      res.render("/singleevent", dbEvent)
-     }
-    }, function(err){
-        //findOne() may return null if the id doesn't exist in DB
-        res.redirect("/findactivities");
-    });
-  }
-  else {
-    res.redirect("/findactivities");
-  }
 });
 
 // "display" logout page, this logous you out, destorys the session, and redirects to the homepage

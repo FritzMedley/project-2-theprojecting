@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes){
       allowNull: true
     },
     numAttendees: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: true
     },
     category: {
