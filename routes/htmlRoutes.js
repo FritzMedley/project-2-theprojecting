@@ -162,33 +162,7 @@ router.get('/logout', function(req, res) {
 });
 
 
-router.get("/findevent", function(req, res) {
-	res.render("partials/findevent");
-});
 
-router.post("/findevent", function(req, res) {
-  var query = {};
-  if (req.body.user_id) {
-    query.creatorId = req.body.user_id;
-  }
-  if (req.body.location) {
-    query.location = req.body.location;
-  }
-  if (req.body.category) {
-    query.category = req.body.category;
-  }
-  if (req.body.date) {
-    query.date = req.body.date;
-  }
-  if (req.body.time) {
-    query.time = req.body.time;
-  }
-  db.Event.findAll({
-    where: query
-  }).then(function(dbPost) {
-    res.render("/activities", dbPost);
-  });
-});
 
 router.post("/create", function(req, res) {
 //We need a conditional that only stores the data if all properties are available.

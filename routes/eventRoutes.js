@@ -26,6 +26,55 @@ router.get("/createevent", function(req, res) {
   }
 });
 
+router.get("/findevent", function(req, res) {
+  console.log(req.query.location);
+  if (req.query.location === null || req.query.location === undefined) {
+      res.render("partials/findevent"); 
+  }
+  else {
+  db.Event.findAll({
+    where: {
+     location: req.query.location
+    }
+  }).then(function(dbPost){
+      var hbsObject = {event: dbPost};
+      console.log(hbsObject.event);
+      //console.log(hbsObject.event.description);
+      res.render("partials/findevent", hbsObject);
+  });
+  } 
+});
+
+// router.post("/findevent", function(req, res) {
+//   var query = {};
+//   if (req.body.user_id) {
+//     query.creatorId = req.body.user_id;
+//   }
+//   if (req.body.location) {
+//     query.location = req.body.location;
+//   }
+//   if (req.body.category) {
+//     query.category = req.body.category;
+//   }
+//   if (req.body.date) {
+//     query.date = req.body.date;
+//   }
+//   if (req.body.time) {
+//     query.time = req.body.time;
+//   }
+//   console.log(req.body);
+//   //console.log(req.body.location);
+//   db.Event.findAll({
+//     where: {
+//        location: req.body.location     
+//     }
+//   }).then(function(dbPost) {
+//    // console.log(dbPost);
+//     var hbsObject = {event: dbPost};
+//     res.json(hbsObject);
+//   });
+// });
+
 router.post("/createevent", function(req, res){
   if(!req.isAuthenticated())
     res.redirect("/login");

@@ -4,22 +4,71 @@
         <h1>This is where one of the tables will load.</h1>
        	</div>
     </div>
-
-  <span>Location: </span><input id="location" type="text" name="search" placeholder="Austin, TX">
-  <span>Category: </span><input id="category" type="text" name="search" placeholder="Sports...">
-  <span>Date: </span>
-  <select name="date">
-  <option value="">Volvo</option>
-  <option value="">Saab</option>
-  <option value="">Fiat</option>
-  <option value="audi">Audi</option>
-</select>
-  
-  
-  
-  
-  <input id="date" type="text" name="search" placeholder="May 6 2017..">
-  <span>Time: </span><input id="time" type="text" name="search" placeholder="5PM">
-
-
 </div>
+
+<form action="/findevent" method="GET">
+  <div>
+  <span>Location: </span><input id="location" type="text" name="location" placeholder="Austin, TX">
+  <span>Category: </span><input id="category" type="text" name="category" placeholder="Sports...">
+  <button type="submit" id="submitButton" class="btn btn-primary">Find Events</button>
+  </div>
+
+  
+</form>
+</div>
+<div id="eventsDiv">
+    <h1> {{event}} </h1>
+</div>
+
+  <script type="text/javascript">
+  $("#submitButton").on("click", function(e){
+  e.preventDefault();
+  var reqObject = {}
+ 
+  reqObject.location = $("#location").val().trim();
+  console.log(reqObject);
+
+
+ //  function makeEventHtml(event, num) {
+ //    var myDiv = $("<div>");
+ //    myDiv.attr("id", "event_"+num);
+ //    myDiv.addClass("well");
+ //    myDiv.append($("<p>"+article.byline.original+"</p>"));
+ //    myDiv.append($("<p>Section: "+article.section_name+"</p>"));
+ //    myDiv.append($("<p>"+article.pub_date+"</p>"));
+
+ //    tempLink=$("<a>");
+ //    tempLink.attr("src", article.web_url);
+ //    tempLink.text(article.web_url);
+ //    myDiv.append(tempLink);
+
+ //    return myDiv;
+ //  }
+
+ // function displayEvents(response, num) {
+ //    $("#our-results").empty();
+ //    var temp=null;
+ //    for(var i=0; i<=num; ++i) {
+ //      console.log(response.dataValues[i]);
+ //      temp=makeArticleHtml(response.dataValues[i], i);
+ //      $("#eventsDiv").append(temp);
+ //    }
+ //  }
+
+
+ $.ajax({
+    type: "GET",
+    url: "/findevent",
+    data: reqObject,
+    dataType: "json",
+    success: function(response) {
+     alert("Success");
+    },
+    error: function(error) {
+      console.log(error);
+    } 
+    });
+
+});
+  </script>
+
