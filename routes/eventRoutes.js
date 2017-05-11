@@ -37,10 +37,13 @@ router.get("/findevent", function(req, res) {
      location: req.query.location
     }
   }).then(function(dbPost){
-      var hbsObject = {event: dbPost};
-      console.log(hbsObject.event);
       //console.log(hbsObject.event.description);
-      res.render(hbsObject);
+      console.log(dbPost);
+      res.json({redirect: "/findevent", 
+                hbs: {event: dbPost}, 
+                db: dbPost
+          });
+
   });
   } 
 });
