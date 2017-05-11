@@ -52,6 +52,7 @@ module.exports = function(sequelize, DataTypes){
         // Associating Author with Posts
         // When an Author is deleted, also delete any associated Posts
         Event.belongsTo(models.User, {
+          as: "Creator",
           foreignKey: {
             name: "creatorId",
             allowNull: false,

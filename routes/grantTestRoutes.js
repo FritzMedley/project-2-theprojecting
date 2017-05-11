@@ -213,13 +213,14 @@ router.get("/test/findevent", function(req, res) {
 router.get("/test/myevents", function(req, res) {
   db.Event.findAll({
     include: [{
-      model: db.User}],
+      model: db.User,
+      as: "Creator"}],
     where: {
       creatorId: req.user.id
     }
   }).then(function(dbEvents){
     //using findeevents for query testing right now
-    console.log(dbEvents);
+    //console.log(dbEvents);
     res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
   });
 
@@ -243,7 +244,10 @@ router.get("/test/joinedevents", function(req, res) {
   //   res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
   // });
   db.Event.findAll({
-    include:[{all:true}]
+    where: {
+      "Users.id": req.user.id
+    },
+    include:[{model: db.User, through:{}}]
   }).done(function(dbStuff){
     res.json(dbStuff);
   })
