@@ -5,14 +5,16 @@ module.exports = function() {
     name: "Bob Johnson",
     email: "bob@bob.com",
     credType: "local",
-    password: "123"
+    //password is "123"
+    hash: "$2a$11$uahkOtSrWKPKX.Kq4NXGYerER01pw4olCUZTX5YVqwaBzQ2/P33Km"
   }).done(function(){});
 
   db.User.create({
     name: "No Way",
     email: "no@no.com",
     credType: "local",
-    password: "123"
+    //password is "123"
+    hash: "$2a$11$slcSFhv3IvO6pQlZXtnJnejqmyqGGnaR3u7FT5LqV1sNysR.vGYAG"
   }).done(function(){});
 
   db.Event.create({

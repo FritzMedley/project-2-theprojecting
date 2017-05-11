@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var db = require("../models");
+var bcrypt = require("bcrypt");
 
 
 //Route to the main page
@@ -82,7 +83,6 @@ router.post("/createaccount", function(req, res){
     var resObject = {
       name: req.body.username,
       email: req.body.email,
-      password: req.body.password,
       credType: "local"
   };
   console.log('got here 1')
@@ -99,8 +99,14 @@ router.post("/createaccount", function(req, res){
     } else {
       //user created if email isn't taken
       console.log('got here 5')
-        db.User.create(resObject).done(function(dbUser){
-          return res.redirect("/login");
+        const saltRounds = 11;
+
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+          // Store hash in your password DB.
+          resObject.hash=hash;
+          db.User.create(resObject).done(function(dbUser){
+            return res.redirect("/login");
+          });
         });
         console.log('got here 6')
       }
