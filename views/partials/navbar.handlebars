@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="./css/herostyle.css">
 <div id="cd-logo"><a href="#0"><img src="../images/v_icons/v.png" alt="Logo" id="logoImage"></a></div>
 
 <nav class="cd-primary-nav">
@@ -5,6 +6,16 @@
     <li><a href="/">Home</a></li>
     <li><a href="/activities">Activities</a></li>
     <!-- <li><a href="/account">Account</a></li> -->
-    <li>{{> accountName}}</li>
+
+      {{#if loggedIn}}
+        {{> accountName}}
+      {{else}}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/createaccount">Register</a></li>
+      {{/if}}
+
+    {{#if loggedIn}}
+    <li><a href="/logout">Logout</a></li>
+    {{/if}}
   </ul>
 </nav>

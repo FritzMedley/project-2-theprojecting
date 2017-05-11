@@ -1,0 +1,11 @@
+body {
+  font-size: 1.6rem;
+  font-family: 'Muli', sans-serif;
+  color: #2c343b;
+  background-color: #f2f2f2;
+}
+
+a {
+  color: #d44457;
+  text-decoration: none;
+}
