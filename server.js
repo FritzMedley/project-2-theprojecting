@@ -54,13 +54,17 @@ var htmlRoutes = require("./routes/htmlRoutes.js");
 var loginRoutes = require("./routes/loginRoutes.js");
 var apiRoutes = require("./routes/apiRoutes.js");
 var grantTestRoutes = require("./routes/grantTestRoutes.js");
+var eventRoutes = require("./routes/eventRoutes.js");
 
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
 app.use(apiRoutes);
-app.use(grantTestRoutes);
+//app.use(grantTestRoutes);
+app.use(eventRoutes);
 
-db.sequelize.sync({force:true}).then(function(){
+
+//set equal to false to run tests on local machine
+db.sequelize.sync({force:false}).then(function(){
   app.listen(PORT, function(){
     console.log("Server listening on PORT: "+ PORT);
 });
