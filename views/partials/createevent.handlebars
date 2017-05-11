@@ -258,11 +258,17 @@ $("#submitButton").on("click", function(e){
     dataType: "json",
     success: function(data) {
       alert("Success");
-    });
-
-
-  
-  
+      console.log(data);
+      if (data.redirect) {
+        //data.redirect contains the string URL to redirect to.
+        window.location.replace(data.redirect);
+      }
+      else {
+        // data.form contains the HTML for the replacement form
+        alert("This didn't work");
+        window.location.replace(data.redirect)
+      }
+    }; 
 });
 </script> 
 

@@ -40,12 +40,12 @@ router.get("/findevent", function(req, res) {
       var hbsObject = {event: dbPost};
       console.log(hbsObject.event);
       //console.log(hbsObject.event.description);
-      res.render("partials/findevent", hbsObject);
+      res.render(hbsObject);
   });
   } 
 });
 
-// router.post("/findevent", function(req, res) {
+// router.post("///findevent", function(req, res) {
 //   var query = {};
 //   if (req.body.user_id) {
 //     query.creatorId = req.body.user_id;
