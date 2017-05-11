@@ -1,11 +1,35 @@
-body {
-  font-size: 1.6rem;
-  font-family: 'Muli', sans-serif;
-  color: #2c343b;
-  background-color: #f2f2f2;
+.accountPage {
+  color: red;
 }
 
-a {
-  color: #d44457;
-  text-decoration: none;
+#createUserSection {
+  margin-top: 14%;
+  padding-left: 45%;
+}
+
+.centered {
+  /*text-align: center;*/
+}
+
+input {
+  margin-top: 1%;
+
+  font-family: 'Muli', sans-serif;
+}
+
+label {
+  margin-top: 1%;
+}
+
+body {
+  background-image: url("../images/camping.jpg");
+  background-size: cover;
+  color: #ffffff;
+  font-family: 'Muli', sans-serif;
+  background-color: #122332;
+}
+
+h1,h2,h3,h4,h5,p {
+  color: #ffffff;
+  font-family: 'Muli', sans-serif;
 }
