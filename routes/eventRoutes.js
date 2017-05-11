@@ -41,10 +41,8 @@ router.get("/findevent", function(req, res) {
       console.log(dbPost);
       res.json({redirect: "/findevent", 
                 hbs: {event: dbPost}, 
-                db: dbPost
-          });
-
-  });
+                db: dbPost});
+});
   } 
 });
 
