@@ -4,6 +4,8 @@ var passport = require("passport");
 var db = require("../models");
 var router = express.Router();
 
+var bcrypt = require("bcrypt");
+
 // //display login in page
 // router.get("/login", function(req, res){
 //   if(req.isAuthenticated())
@@ -293,8 +295,20 @@ router.get("/test/joinedevents", function(req, res) {
   }).done(function(results){
     res.json(results);
   });
+});
 
+router.get("/test/hashforu", function(req, res) {
+  var returnObj = {};
+  const saltRounds = 11;
 
+  bcrypt.hash("123", saltRounds, function(err, hash) {
+    returnObj.pass1=hash;
+    bcrypt.hash("123", saltRounds, function(err, hash) {
+      returnObj.pass2=hash;
+      res.json(returnObj);
+    });
+  });
+  
 });
 
 module.exports = router;
