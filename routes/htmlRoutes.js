@@ -58,57 +58,6 @@ router.post('/login',
                                    failureFlash: true })
 );
 
-//display create user page
-router.get("/createaccount", function(req, res){
-  //checks to see if they are authenticated, and if so, bring them to their account page
-  if(req.isAuthenticated()) {
-    res.redirect("/myaccount")
-  }
-  //send them to the create account page
-  else {
-    res.render("./skeleton/createuser");
-  }
-
-});
-
-// OG CREATE ACCOUNT
-// router.post("/createaccount", function(req, res){
-//   //checks to see if the user actually has an account and direct them to their page
-//   if(req.isAuthenticated()) {
-//     res.redirect("/myaccount");
-//   }
-//   //else creates an account for the user using the data that he/she passes in.
-//   else {
-//     var newUser = {
-//       name: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password,
-//       credType: "local"
-//   };
-//   console.log('got here 1')
-//     db.User.findAll({where: {email: newUser.email}}).done(function(dbUsers){
-//       console.log('got here 2')
-//       if(dbUsers.length > 0){
-//         console.log('got here 3')
-//         var errHandler = {
-//           err: "The email is already taken. Please try another email.",
-//           name: req.body.username
-//         }
-//       console.log('got here 4')
-//       return res.render("./skeleton/createuser", errHandler);
-//     } else {
-//       //user created if email isn't taken
-//       console.log('got here 5')
-//         db.User.create(newUser).done(function(dbUser){
-//           return res.redirect("/login");
-//         });
-//         console.log('got here 6')
-//       }
-//     });
-//   }
-// });
-// END OG CREATE ACCOUNT
-
 
 // JOSH'S VERSION OF createaccount
 router.post("/createaccount", function(req, res){
@@ -161,6 +110,7 @@ router.get("/myaccount", function(req, res) {
     };
     res.render("./skeleton/partial1", userInfo);
   }
+});
 
 router.post("/createaccount", function(req, res){
   //checks to see if the user actually has an account and direct them to their page
