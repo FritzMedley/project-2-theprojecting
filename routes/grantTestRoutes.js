@@ -227,30 +227,51 @@ router.get("/test/myevents", function(req, res) {
 });
 
 router.get("/test/joinedevents", function(req, res) {
-  // db.Event.findAll({
-  //   where: { Userid: req.user.id},
-  //   include: [{
-  //      model: db.Event
-  //   }, {model:db.User}]
-  // }).then(function(dbEvents){
-  //   //using findeevents for query testing right now
+  //working to get all that I want back
+//  db.Event.findAll({
+//     where: {
+//     },
+//     include:[{
+//       model: db.User, 
+//       through:{
+//         model: db.Partylist,
+//         where: {UserId: req.user.id}
+//       }
+//     }],
+//     raw: true
+//   }).done(function(dbStuff){
+//     res.json(dbStuff);
+//   });
 
-  //   console.log(dbEvents[0]);
-  //   console.log(dbEvents[0].Events);
-  //   console.log(dbEvents[0].Event);
-  //   console.log(dbEvents[0].Events,id);
-  //   console.log(dbEvents[0].events);
-  //   console.log(dbEvents[0].event);
-  //   res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
-  // });
+  //works
   db.Event.findAll({
     where: {
-      "Users.id": req.user.id
     },
-    include:[{model: db.User, through:{}}]
+    include:[{
+      model: db.Partylist, 
+      include:[{
+        model: db.User,
+        where: {id: req.user.id}
+      }]
+    }],
+    raw: true
   }).done(function(dbStuff){
     res.json(dbStuff);
-  })
+  });
+
+  // db.Event.findAll({
+  //   where: {
+  //   },
+  //   include:[{
+  //     model: db.User, 
+  //     through : {
+  //       where: {UserId: req.user.id}
+  //     }
+  //   }],
+  //   raw: true
+  // }).done(function(dbStuff){
+  //   res.json(dbStuff);
+  // });
 
 
 });
