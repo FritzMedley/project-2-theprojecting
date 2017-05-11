@@ -152,22 +152,27 @@ router.get("/test/myevents", function(req, res) {
 });
 
 router.get("/test/joinedevents", function(req, res) {
-  db.UserEvent.findAll({
-    where: { Userid: req.user.id},
-    include: [{
-       model: db.Event
-    }, {model:db.User}]
-  }).then(function(dbEvents){
-    //using findeevents for query testing right now
+  // db.Event.findAll({
+  //   where: { Userid: req.user.id},
+  //   include: [{
+  //      model: db.Event
+  //   }, {model:db.User}]
+  // }).then(function(dbEvents){
+  //   //using findeevents for query testing right now
 
-    console.log(dbEvents[0]);
-    console.log(dbEvents[0].Events);
-    console.log(dbEvents[0].Event);
-    console.log(dbEvents[0].Events,id);
-    console.log(dbEvents[0].events);
-    console.log(dbEvents[0].event);
-    res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
-  });
+  //   console.log(dbEvents[0]);
+  //   console.log(dbEvents[0].Events);
+  //   console.log(dbEvents[0].Event);
+  //   console.log(dbEvents[0].Events,id);
+  //   console.log(dbEvents[0].events);
+  //   console.log(dbEvents[0].event);
+  //   res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
+  // });
+  db.Event.findAll({
+    include:[{all:true}]
+  }).done(function(dbStuff){
+    res.json(dbStuff);
+  })
 
 });
 
