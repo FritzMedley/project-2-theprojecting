@@ -4,6 +4,8 @@ var passport = require("passport");
 var db = require("../models");
 var router = express.Router();
 
+var bcrypt = require("bcrypt");
+
 // //display login in page
 // router.get("/login", function(req, res){
 //   if(req.isAuthenticated())
@@ -213,42 +215,100 @@ router.get("/test/findevent", function(req, res) {
 router.get("/test/myevents", function(req, res) {
   db.Event.findAll({
     include: [{
-      model: db.User}],
+      model: db.User,
+      as: "Creator"}],
     where: {
       creatorId: req.user.id
     }
   }).then(function(dbEvents){
     //using findeevents for query testing right now
-    console.log(dbEvents);
+    //console.log(dbEvents);
     res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
   });
 
 });
 
 router.get("/test/joinedevents", function(req, res) {
+  //working to get all that I want back
+//  db.Event.findAll({
+//     where: {
+//     },
+//     include:[{
+//       model: db.User, 
+//       through:{
+//         model: db.Partylist,
+//         where: {UserId: req.user.id}
+//       }
+//     }],
+//     raw: true
+//   }).done(function(dbStuff){
+//     res.json(dbStuff);
+//   });
+
+  //works
   // db.Event.findAll({
-  //   where: { Userid: req.user.id},
-  //   include: [{
-  //      model: db.Event
-  //   }, {model:db.User}]
-  // }).then(function(dbEvents){
-  //   //using findeevents for query testing right now
-
-  //   console.log(dbEvents[0]);
-  //   console.log(dbEvents[0].Events);
-  //   console.log(dbEvents[0].Event);
-  //   console.log(dbEvents[0].Events,id);
-  //   console.log(dbEvents[0].events);
-  //   console.log(dbEvents[0].event);
-  //   res.render("./skeleton/findevent", {user:req.user, results:dbEvents});
+  //   where: {
+  //   },
+  //   include:[{
+  //     model: db.Partylist, 
+  //     include:[{
+  //       model: db.User,
+  //       where: {id: req.user.id}
+  //     }]
+  //   }],
+  //   raw: true
+  // }).done(function(dbStuff){
+  //   res.json(dbStuff);
   // });
-  db.Event.findAll({
-    include:[{all:true}]
-  }).done(function(dbStuff){
-    res.json(dbStuff);
-  })
 
+//also works
+  // db.Event.findAll({
+  //   where: {
+  //   },
+  //   include:[{
+  //     model: db.User, 
+  //     where: {id: req.user.id}
+  //     }],
+  //   raw: true
+  // }).done(function(dbStuff){
+  //   res.json(dbStuff);
+  // });
 
+  //just a test, but works also
+  // db.Partylist.findAll({
+  //   where: {
+  //     UserId: req.user.id
+  //   },
+  //   include: [db.User, db.Event],
+  //   raw: true
+  // }).done(function(results){
+  //   res.json(results);
+  // });
+
+  //works, for getting count of thing going to specific event
+  //we can use this to calculate open slots when people try to join
+  db.Partylist.findAll({
+    attributes:  [[db.sequelize.fn('COUNT', db.sequelize.col('UserId')), 'numGoing']],
+    where: {
+      EventId: 3
+    }
+  }).done(function(results){
+    res.json(results);
+  });
+});
+
+router.get("/test/hashforu", function(req, res) {
+  var returnObj = {};
+  const saltRounds = 11;
+
+  bcrypt.hash("123", saltRounds, function(err, hash) {
+    returnObj.pass1=hash;
+    bcrypt.hash("123", saltRounds, function(err, hash) {
+      returnObj.pass2=hash;
+      res.json(returnObj);
+    });
+  });
+  
 });
 
 module.exports = router;

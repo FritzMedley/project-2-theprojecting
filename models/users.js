@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes){
     password: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    hash: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {
@@ -34,7 +38,8 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
           }
         });
-        User.belongsToMany(models.Event, {through: "UserEvent"});
+        User.belongsToMany(models.Event, {through: models.Partylist});
+        User.hasMany(models.Partylist);
       }
     }
   }

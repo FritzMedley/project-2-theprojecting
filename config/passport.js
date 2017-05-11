@@ -3,6 +3,7 @@ var LocalStrategy = require("passport-local").Strategy;
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 var GOOGLE_CLIENT_KEY = require("../config/auth.js").GOOGLE_CONSUMER_KEY;
 var GOOGLE_CLIENT_SECRET = require("../config/auth.js").GOOGLE_CONSUMER_SECRET;
+var bcrypt = require("bcrypt");
 
 var db = require("../models");
 
@@ -48,13 +49,18 @@ module.exports = function() {
 
     db.User.findOne({where: {email: loggedUser.email}}).done(function(dbUser){
       if(dbUser!==null) {
-        if(dbUser.password === loggedUser.password)
-          return done(null, dbUser);
-        else
-          return done(null, false, {message: "Incorrect Password"});
+        bcrypt.compare(loggedUser.password, dbUser.hash, function(err, res) {
+          if(res===true){
+            console.log("User logged in!");
+            return done(null, dbUser);
+          } else {
+            console.log("User not logged in");
+            return done(null, false, {message: "Incorrect Password"});
+          }
+        });
       }
       else {
-        return done(null, false, {message: "No account found, checm email"});
+        return done(null, false, {message: "No account found, check email"});
       }
     });
   }));

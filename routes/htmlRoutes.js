@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var db = require("../models");
+var bcrypt = require("bcrypt");
 
 
 //Route to the main page
@@ -82,7 +83,6 @@ router.post("/createaccount", function(req, res){
     var resObject = {
       name: req.body.username,
       email: req.body.email,
-      password: req.body.password,
       credType: "local"
   };
   console.log('got here 1')
@@ -99,8 +99,14 @@ router.post("/createaccount", function(req, res){
     } else {
       //user created if email isn't taken
       console.log('got here 5')
-        db.User.create(resObject).done(function(dbUser){
-          return res.redirect("/login");
+        const saltRounds = 11;
+
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+          // Store hash in your password DB.
+          resObject.hash=hash;
+          db.User.create(resObject).done(function(dbUser){
+            return res.redirect("/login");
+          });
         });
         console.log('got here 6')
       }
@@ -162,33 +168,7 @@ router.get('/logout', function(req, res) {
 });
 
 
-router.get("/findevent", function(req, res) {
-	res.render("partials/findevent");
-});
 
-router.post("/findevent", function(req, res) {
-  var query = {};
-  if (req.body.user_id) {
-    query.creatorId = req.body.user_id;
-  }
-  if (req.body.location) {
-    query.location = req.body.location;
-  }
-  if (req.body.category) {
-    query.category = req.body.category;
-  }
-  if (req.body.date) {
-    query.date = req.body.date;
-  }
-  if (req.body.time) {
-    query.time = req.body.time;
-  }
-  db.Event.findAll({
-    where: query
-  }).then(function(dbPost) {
-    res.render("/activities", dbPost);
-  });
-});
 
 router.post("/create", function(req, res) {
 //We need a conditional that only stores the data if all properties are available.
