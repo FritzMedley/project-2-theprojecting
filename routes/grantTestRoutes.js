@@ -244,34 +244,55 @@ router.get("/test/joinedevents", function(req, res) {
 //   });
 
   //works
-  db.Event.findAll({
-    where: {
-    },
-    include:[{
-      model: db.Partylist, 
-      include:[{
-        model: db.User,
-        where: {id: req.user.id}
-      }]
-    }],
-    raw: true
-  }).done(function(dbStuff){
-    res.json(dbStuff);
-  });
-
   // db.Event.findAll({
   //   where: {
   //   },
   //   include:[{
-  //     model: db.User, 
-  //     through : {
-  //       where: {UserId: req.user.id}
-  //     }
+  //     model: db.Partylist, 
+  //     include:[{
+  //       model: db.User,
+  //       where: {id: req.user.id}
+  //     }]
   //   }],
   //   raw: true
   // }).done(function(dbStuff){
   //   res.json(dbStuff);
   // });
+
+//also works
+  // db.Event.findAll({
+  //   where: {
+  //   },
+  //   include:[{
+  //     model: db.User, 
+  //     where: {id: req.user.id}
+  //     }],
+  //   raw: true
+  // }).done(function(dbStuff){
+  //   res.json(dbStuff);
+  // });
+
+  //just a test, but works also
+  // db.Partylist.findAll({
+  //   where: {
+  //     UserId: req.user.id
+  //   },
+  //   include: [db.User, db.Event],
+  //   raw: true
+  // }).done(function(results){
+  //   res.json(results);
+  // });
+
+  //works, for getting count of thing going to specific event
+  //we can use this to calculate open slots when people try to join
+  db.Partylist.findAll({
+    attributes:  [[db.sequelize.fn('COUNT', db.sequelize.col('UserId')), 'numGoing']],
+    where: {
+      EventId: 3
+    }
+  }).done(function(results){
+    res.json(results);
+  });
 
 
 });
