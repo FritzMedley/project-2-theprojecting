@@ -58,7 +58,8 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false,
           }
         });
-        Event.belongsToMany(models.User, {through: "UserEvent"});
+        Event.belongsToMany(models.User, {through: models.Partylist});
+        Event.hasMany(models.Partylist);
       }
     }
   }
