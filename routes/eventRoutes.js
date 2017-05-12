@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var db = require("../models");
+var transporter = require("../config/nodemailer.js");
 
 //Route to activities page
 router.get("/activities", function(req, res){
@@ -126,7 +127,47 @@ router.get("/event", function(req, res){
             dbEvent.hasUser(req.user.id).done(function(result){
               if(!result) {
                 //adds the user to the event
-                dbEvent.addUser(req.user.id);
+                dbEvent.addUser(req.user.id).done(function(dbEvent){
+                  console.log(dbEvent[0][0].EventId);
+                  db.User.findAll({
+                    where: {
+                    },
+                    include:[{
+                      model: db.Partylist, 
+                      include:[{
+                        model: db.Event,
+                        where: {
+                          id: dbEvent[0][0].EventId
+                        }
+                      }]
+                    }],
+                    raw: true
+                  }).done(function(dbStuff){
+                      for(var i=0; i<dbStuff.length; ++i){
+                        console.log("Mailing "+dbStuff[i].name+" at "+dbStuff[i].email);
+                        let mailOptions = {
+                          from: '"Vidi Veni Mail" <vidivenimail@gmail.com>', // sender address
+                          to: dbStuff[i].email, // list of receivers
+                          subject: 'A new person has joined!', // Subject line
+                          template: 'mailJoinedBody',
+                          context: {
+                              name: dbStuff[i].name,
+                              websiteUrl: "http://localhost:8080",
+                              joinedName: req.user.name,
+                              eventId: dbEvent[0][0].EventId
+                            }
+                        };
+
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                          if (error) {
+                              return console.log(error);
+                          }
+                          console.log('Message %s sent: %s', info.messageId, info.response);
+                        });
+                      }
+                  });
+                });
               }
             }); 
         });
