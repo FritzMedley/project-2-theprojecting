@@ -1,8 +1,8 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-var GOOGLE_CLIENT_KEY = require("../config/auth.js").GOOGLE_CONSUMER_KEY;
-var GOOGLE_CLIENT_SECRET = require("../config/auth.js").GOOGLE_CONSUMER_SECRET;
+var GOOGLE_CLIENT_KEY = process.env.GOOGLE_CONSUMER_KEY;
+var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CONSUMER_SECRET;
 var bcrypt = require("bcrypt");
 
 var db = require("../models");

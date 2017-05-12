@@ -59,7 +59,7 @@ var eventRoutes = require("./routes/eventRoutes.js");
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
 app.use(apiRoutes);
-app.use(grantTestRoutes);
+//app.use(grantTestRoutes);
 app.use(eventRoutes);
 
 
