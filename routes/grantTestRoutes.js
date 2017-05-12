@@ -245,21 +245,23 @@ router.get("/test/joinedevents", function(req, res) {
 //     res.json(dbStuff);
 //   });
 
-  //works
-  // db.Event.findAll({
-  //   where: {
-  //   },
-  //   include:[{
-  //     model: db.Partylist, 
-  //     include:[{
-  //       model: db.User,
-  //       where: {id: req.user.id}
-  //     }]
-  //   }],
-  //   raw: true
-  // }).done(function(dbStuff){
-  //   res.json(dbStuff);
-  // });
+ // works
+  db.Event.findAll({
+    where: {
+    },
+    include:[{
+      model: db.Partylist, 
+      include:[{
+        model: db.User,
+        where: {id: req.user.id}
+      }]
+    }],
+    raw: true
+  }).done(function(dbStuff){
+      var hbsObject = {results: dbStuff, 
+                       user: req.user}; 
+    res.render("./skeleton/findevent", hbsObject);
+  });
 
 //also works
   // db.Event.findAll({
@@ -287,14 +289,14 @@ router.get("/test/joinedevents", function(req, res) {
 
   //works, for getting count of thing going to specific event
   //we can use this to calculate open slots when people try to join
-  db.Partylist.findAll({
-    attributes:  [[db.sequelize.fn('COUNT', db.sequelize.col('UserId')), 'numGoing']],
-    where: {
-      EventId: 3
-    }
-  }).done(function(results){
-    res.json(results);
-  });
+  // db.Partylist.findAll({
+  //   attributes:  [[db.sequelize.fn('COUNT', db.sequelize.col('UserId')), 'numGoing']],
+  //   where: {
+  //     EventId: 3
+  //   }
+  // }).done(function(results){
+  //   res.json(results);
+  // });
 });
 
 router.get("/test/hashforu", function(req, res) {

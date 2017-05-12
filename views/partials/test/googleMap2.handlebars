@@ -1,7 +1,9 @@
 <style>
     #map {
-      height: 400px;
-      width: 500px;
+      height: 800px;
+      width: 950px;
+      text-align: center;
+      margin: auto;
     }
     #maps-location {
       width: 300px;
@@ -11,6 +13,12 @@
     }
 </style>
 <div id="map"></div>
+
+<input type="text" id="maps-location" name="location"/><br>
+<div id="info-box">
+   <p class="place-name"></p>
+   <p class="place-address"></p>
+</div>
 
 <script type="text/javascript">
   var map;
@@ -25,7 +33,7 @@
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: new google.maps.LatLng(39, -95),
-      zoom: 3
+      zoom: 4
     });
 
     geocoder = new google.maps.Geocoder();
@@ -82,9 +90,9 @@
         
         marker.addListener('click', function(mark) {
           mark.stop();
-          $("#create-event-form input[name=location]").val(place.name+", "+place.formatted_address);
-          $("#create-event-form input[name=placeId]").val(place.id);
-          $("#create-event-form input[name=lnglat]").val(place.geometry.location);
+          $("#location").val(place.name+", "+place.formatted_address);
+          $("#placeId").val(place.id);
+          $("#lnglat").val(place.geometry.location);
 
           console.log(place);
           infoWindow.close();

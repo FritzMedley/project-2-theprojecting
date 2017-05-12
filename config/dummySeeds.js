@@ -19,9 +19,12 @@ module.exports = function() {
 
   db.Event.create({
     description: "Test",
-    name: "Ttest Name",
+    name: "Test Name",
     numAttendees: "2",
     location: "Austin, Tx",
+    category: "Sports", 
+    startTime: "9:30",
+    endTime: "10:30", 
     creatorId: 1
   }).done(function(dbEvent){
     dbEvent.addUser(1);
