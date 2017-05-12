@@ -71,6 +71,3 @@ db.sequelize.sync({force:true}).then(function(){
   var dummyEvents = require("./config/dummySeeds.js");
   dummyEvents();
 });
-
-
-
