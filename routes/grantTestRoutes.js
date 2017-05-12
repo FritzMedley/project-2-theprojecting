@@ -311,4 +311,46 @@ router.get("/test/hashforu", function(req, res) {
   
 });
 
+router.get("/test/api/events", function(req, res) {
+  var query = {};
+  if (req.body.user_id) {
+    query.creatorId = req.body.user_id;
+  }
+  if (req.body.location) {
+    query.location = req.body.location;
+  }
+  if (req.body.category) {
+    query.category = req.body.category;
+  }
+  if (req.body.date) {
+    query.date = req.body.date;
+  }
+  if (req.body.time) {
+    query.time = req.body.time;
+  }
+  db.Event.findAll({
+    raw: true,
+    where: query,
+      attributes: Object.keys(db.Event.attributes).concat([
+          [
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            "numGoing"
+          ]
+        ])
+  }).then(function(dbPost) {
+    res.json(dbPost);
+  });
+});
+
+router.get("/test/api/events2", function(req, res) {
+  db.sequelize.query('SELECT *, (SELECT COUNT(UserId) FROM partylists WHERE EventId = events.id) AS "numGoing" FROM events;',
+    {
+      model: db.Event,
+      raw: false
+    }
+  ).then(function(results){
+    res.json(results);
+  });
+});
+
 module.exports = router;
