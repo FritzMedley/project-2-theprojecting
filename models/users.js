@@ -23,6 +23,11 @@ module.exports = function(sequelize, DataTypes){
     hash: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    subscribed: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     }
   },
   {

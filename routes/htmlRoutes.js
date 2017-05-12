@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var db = require("../models");
 var bcrypt = require("bcrypt");
+var transporter = require("../config/nodemailer.js");
 
 
 //Route to the main page
@@ -105,6 +106,26 @@ router.post("/createaccount", function(req, res){
           // Store hash in your password DB.
           resObject.hash=hash;
           db.User.create(resObject).done(function(dbUser){
+
+            let mailOptions = {
+              from: '"Vidi Veni Mail" <vidivenimail@gmail.com>', // sender address
+              to: dbUser.email, // list of receivers
+              subject: 'Hello, '+dbUser.name, // Subject line
+              template: 'mailWelcomeBody',
+              context: {
+                  name: dbUser.name,
+                  websiteUrl: "http://localhost:8080"
+              }
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message %s sent: %s', info.messageId, info.response);
+            });
+
             return res.redirect("/login");
           });
         });
