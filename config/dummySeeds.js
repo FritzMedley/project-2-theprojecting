@@ -3,7 +3,7 @@ var db = require("../models");
 module.exports = function() {
   db.User.create({
     name: "Bob Johnson",
-    email: "bob@bob.com",
+    email: "thething1845@yahoo.com",
     credType: "local",
     //password is "123"
     hash: "$2a$11$uahkOtSrWKPKX.Kq4NXGYerER01pw4olCUZTX5YVqwaBzQ2/P33Km"
@@ -11,7 +11,7 @@ module.exports = function() {
 
   db.User.create({
     name: "No Way",
-    email: "no@no.com",
+    email: "thething1845@gmail.com",
     credType: "local",
     //password is "123"
     hash: "$2a$11$slcSFhv3IvO6pQlZXtnJnejqmyqGGnaR3u7FT5LqV1sNysR.vGYAG"
