@@ -1,28 +1,41 @@
-{{> navbar  }}
 <link rel="stylesheet" href="./css/herostyle.css">
+<link rel="stylesheet" href="./css/myaccount.css">
+<header class="cd-header">
+{{> navbar  }}
+</header>
 
 <!-- <form id="createaccount" action="/createaccount", method="PUT"> -->
 <form id="createaccount" action="/login", method="PUT">
 
 <div class="accountPage">
+  <h1>Current Account Settings</h1>
   <div class="input-group">
-    <span class="input-group-addon" id="basic-addon1">Name</span>
-    <input type="text" class="form-control" value="{{user.name}}" aria-describedby="basic-addon1">
+    <!-- <span class="input-group-addon" id="basic-addon1">Name</span> -->
+    <label for="userName"><h5>User Name</h5></label><br>
+    <!-- <input type="text" class="form-control" value="{{user.name}}" aria-describedby="basic-addon1"> -->
+    <input type="text" value="{{user.name}}" aria-describedby="basic-addon1">
   </div>
   <br>
 
   <div class="input-group">
-    <span class="input-group-addon" id="basic-addon1">Email</span>
-    <input type="text" class="form-control" value="{{user.email}}" aria-describedby="basic-addon1">
+    <!-- <span class="input-group-addon" id="basic-addon1">Email</span> -->
+    <label for="email"><h5>Email</h5></label><br>
+    <!-- <input type="text" class="form-control" value="{{user.email}}" aria-describedby="basic-addon1"> -->
+    <input type="text" value="{{user.email}}" aria-describedby="basic-addon1">
   </div>
   <br>
 
   <div class="input-group">
-    <span class="input-group-addon" id="basic-addon1">Password</span>
-    <input type="text" class="form-control" value="*********" aria-describedby="basic-addon1">
+    <!-- <span class="input-group-addon" id="basic-addon1">Password</span> -->
+    <label for="password"><h5>Password</h5></label><br>
+    <!-- <input type="text" class="form-control" value="*********" aria-describedby="basic-addon1"> -->
+    <input type="text" value="*********" aria-describedby="basic-addon1">
   </div>
   <br>
 
-  <button type="submit">Update</button>
+  <!-- <button type="submit">Update</button> -->
+  <button type="submit" class="btn btn-default centered" aria-label="Left Align">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"> Update</span>
+  </button>
 </div>
 </form>

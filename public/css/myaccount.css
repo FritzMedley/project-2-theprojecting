@@ -1,5 +1,7 @@
 .accountPage {
-  color: red;
+  margin-top: 14%;
+  width: 30%;
+  margin-left: 40%;
 }
 
 #createUserSection {
@@ -11,15 +13,15 @@
   /*text-align: center;*/
 }
 
-input {
+/*input {
   margin-top: 1%;
 
   font-family: 'Muli', sans-serif;
-}
+}*/
 
-label {
+/*label {
   margin-top: 1%;
-}
+}*/
 
 body {
   background-image: url("../images/camping.jpg");

@@ -7,21 +7,24 @@ body {
     font-family: 'Muli', sans-serif;
 }
 
-input {
+/*input {
   margin-top: 1%;
   font-family: 'Muli', sans-serif;
 }
 
 label {
   margin-top: 1%;
-}
+}*/
 
 .loginSection {
-    margin-top: 14%;
-    padding-left: 45%;
+  margin-top: 10%;
+  margin-left: 38%;
 }
 
 h1,h2,h3,h4,h5,p {
   color: #ffffff;
   font-family: 'Muli', sans-serif;
+}
+form {
+
 }
