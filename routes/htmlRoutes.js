@@ -122,11 +122,22 @@ router.get("/myaccount", function(req, res) {
   //Custom object that loads indivial user account page
   if(req.isAuthenticated()) {
 
-    var userInfo = {
-      name: req.user.name,
-      email: req.user.email
-    };
-    res.render("./skeleton/partial1", userInfo);
+    // var userInfo = {
+    //   name: req.user.name,
+    //   email: req.user.email
+    // };
+
+    var resObject = {
+       loggedIn: req.isAuthenticated()
+    }
+
+    if (req.user) {
+         resObject.user = req.user;
+         resObject.name = req.user.name;
+         resObject.email = req.user.email;
+     }
+
+    res.render("./partials/myaccount", resObject);
   }
 });
 
