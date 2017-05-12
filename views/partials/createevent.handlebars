@@ -4,6 +4,9 @@
 
 </head>
 <body>
+<div>
+    {{>test/googleMap2}}
+</div>
 
 
 <div class="events-create col-md-12"> 
@@ -18,6 +21,8 @@ add the a description of the event, the time and location so that your attendees
     <label for="name">Event Name:</label>
     <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="name">
   </div>
+  <input type="hidden" id="placeId">
+  <input type="hidden" id="lnglat">
   <div class="form-group event-field">
     <label for="location">Location:</label>
     <input type="name" class="form-control" id="location" placeholder="Austin, TX">
@@ -268,7 +273,8 @@ $("#submitButton").on("click", function(e){
         alert("This didn't work");
         window.location.replace(data.redirect)
       }
-    }; 
+    } 
+});
 });
 </script> 
 

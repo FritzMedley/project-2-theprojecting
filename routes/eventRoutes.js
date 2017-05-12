@@ -26,24 +26,28 @@ router.get("/createevent", function(req, res) {
   }
 });
 
-router.get("/findevent", function(req, res) {
-  console.log(req.query.location);
-  if (req.query.location === null || req.query.location === undefined) {
-      res.render("partials/findevent"); 
+router.post("/findevents", function(req, res){
+  var query = {};
+  if (req.query.user_id) {
+    query.creatorId = req.query.user_id;
   }
-  else {
-  db.Event.findAll({
-    where: {
-     location: req.query.location
-    }
-  }).then(function(dbPost){
-      //console.log(hbsObject.event.description);
-      console.log(dbPost);
-      res.json({redirect: "/findevent", 
-                hbs: {event: dbPost}, 
-                db: dbPost});
-});
-  } 
+  if (req.query.location) {
+    query.location = req.query.location;
+  }
+  if (req.query.category) {
+    query.category = req.query.category;
+  }
+  if (req.query.date) {
+    query.date = req.query.date;
+  }
+  if (req.query.time) {
+    query.time = req.query.time;
+  }
+
+})
+
+router.get("/findevents", function(req, res) {
+      res.render("partials/findevent");  
 });
 
 // router.post("///findevent", function(req, res) {
@@ -110,6 +114,27 @@ router.post("/createevent", function(req, res){
 
 
 router.get("/event", function(req, res){
+  //checks to see if the user joined the event
+  if(req.query.join === "true") {
+      if (req.isAuthenticated()) {
+        db.Event.findOne({
+          where: {
+            id: req.query.id
+          }
+        }).done(function(dbEvent){
+          //this checks if the user has already joined event 
+            dbEvent.hasUser(req.user.id).done(function(result){
+              if(!result) {
+                //adds the user to the event
+                dbEvent.addUser(req.user.id);
+              }
+            }); 
+        });
+      }
+      else {
+        return res.redirect("/login");
+      }
+  }
   if(req.query.id !== null) {
   	console.log(req.query.id);
      db.Event.findOne({
