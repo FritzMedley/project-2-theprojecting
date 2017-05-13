@@ -75,9 +75,9 @@ describe("API returns events", function() {
 
 });
 
-describe("API returns events", function() {
+describe("Events page displays all available activities", function() {
 
-  var url = "http://localhost:8080/api/events";
+  var url = "http://localhost:8080/activities";
 
   it("returns status 200 and json objects", function(done) {
     request(url, function(error, response, body) {

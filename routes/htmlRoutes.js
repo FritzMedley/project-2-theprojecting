@@ -90,7 +90,7 @@ router.post("/createaccount", function(req, res){
           resObject.hash=hash;
           db.User.create(resObject).done(function(dbUser){
 
-            let mailOptions = {
+            var mailOptions = {
               from: '"Vidi Veni Mail" <vidivenimail@gmail.com>', // sender address
               to: dbUser.email, // list of receivers
               subject: 'Hello, '+dbUser.name, // Subject line
