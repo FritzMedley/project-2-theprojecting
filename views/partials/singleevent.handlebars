@@ -1,25 +1,46 @@
-
+<link rel="stylesheet" href="./css/activities.css">
 <link rel="stylesheet" href="./css/singleevent.css">
 <header>
 {{> navbar}}
 </header>
+<div class="singleEventMessage">
+<h1>Congrats! You have just joined {{event.name}} at {{event.startTime}}. </h1> 
+<hr>
+
+<h4>You should receive a confirmation email with all the details. We look forward to seeing you there!</h4>
+<br>
 
 <div class="container">
 <div id="titleContiner">
 <h1> {{event.name}}</h1>
+<h2> {{event.location}}</h2>
 </div>
+<br>
 <div id="imageContainer">
+{{#if image}}
 <img src="{{event.image}}">
+{{else}}
+<img src="images/concert.jpg">
+{{/if}}
 </div>
-<div id=dateTimeContainer>
-<h2 id="time">{{event.startTime}} - {{event.endTime}}</h2>
+
+<div id="dateTimeContainer" class="col-md-6">
+<h2 id="time">Time: {{event.startTime}} - {{event.endTime}}</h2>
 <h2 id="data">{{event.date}}</h2>
 </div>
+<div id="categoryContainer" class="col-md-6">
+<h2>Category: {{event.category}}</h2>
+</div>
+<br>
+<br>
+
 <div id="descriptionContainer">
-<h2>{{event.category}}</h2>
 <h2>{{event.description}}</h2>
 <h4>{{subtract event.numAttendees event.numGoing}} spots remaining!</h4>
-
 </div>
+<br>
+<br>
+
+<a href="/activities"><input type="submit" id="submitButton" value="Back to Events" class="btn btn-primary"></a>
 
 </div>

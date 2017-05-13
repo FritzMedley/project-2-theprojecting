@@ -1,14 +1,63 @@
+.singleEventMessage {
+	clear: both;
+	margin-top: 200px;
+	text-align: center;
+	color: #fff;
+}
+
+.singleEventMessage h1 {
+	font-size: 55px;
+}
+
+
 .container {
-  background-image: url("../images/basketball.jpg");
-  background-size: cover;
-  color: #ffffff;
+  background-image: url("../images/green_dust_scratch.png");
+  color: #d44457;
+  text-align: center;
   font-family: 'Muli', sans-serif;
-  background-color: #122332;
+  clear: both;
+  border:  rgba(212, 68, 87, 0.9) solid 3px;
 }
 
 #titleContainer {
 	text-align: center; 
 	color: #d44457;
-
 }
 
+
+
+#imageContainer {
+	width: 650px;
+	height: 100%;
+	margin: auto;
+	margin-bottom: 30px;
+}
+
+#dateTimeContainer {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin: 0px;	
+}
+
+#dateTimeContainer h2 {
+	margin: 0px;
+}
+
+#categoryContainer h2 {
+	margin:0px;
+}
+
+#descriptionContainer {
+	margin-top:15px;
+}
+
+
+#imageContainer:hover {
+	filter: sepia(85%)
+}
+
+#submitButton {
+    background-color: #d44457;
+    padding: 15px 32px;
+    font-size: 20px;
+}
