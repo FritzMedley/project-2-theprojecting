@@ -34,7 +34,7 @@ router.get("/api/events", function(req, res) {
   }
   if (req.query.endTime) {
     query.endTime = req.query.endTime;
-  } 
+  }
   if (req.query.startTime) {
     query.startTime = req.query.startTime;
   }
@@ -47,7 +47,7 @@ router.get("/api/events", function(req, res) {
   }).then(function(dbPost) {
     res.json(dbPost);
   }, function(err){
-    res.json([]); 
+    res.json([]);
   });
 });
 
@@ -100,6 +100,25 @@ router.get("/api/events", function(req, res) {
     where: query
   }).then(function(dbPost) {
     res.json(dbPost);
+  });
+});
+
+
+// PUT route for updating accounts
+router.put("/api/updateaccount", function(req, res) {
+var query = {};
+  db.User.update({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password
+  }, {
+    where: {
+      id: req.user.id
+    }
+  }).then(function(dbPost) {
+    req.user.name = req.body.name;
+    req.user.email = req.body.email;
+    res.redirect("/myaccount");
   });
 });
 
