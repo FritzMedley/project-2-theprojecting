@@ -61,7 +61,7 @@ router.post("/findevents", function(req, res){
 })
 
 router.get("/findevent", function(req, res) {
-      res.render("partials/findevent");  
+      res.render("partials/findevent");
 });
 
 // router.post("///findevent", function(req, res) {
@@ -85,7 +85,7 @@ router.get("/findevent", function(req, res) {
 //   //console.log(req.body.location);
 //   db.Event.findAll({
 //     where: {
-//        location: req.body.location     
+//        location: req.body.location
 //     }
 //   }).then(function(dbPost) {
 //    // console.log(dbPost);
@@ -105,7 +105,7 @@ router.post("/createevent", function(req, res){
       numAttendees: parseInt(req.body.numAttendees),
       category: req.body.category,
       location: req.body.location,
-      startTime: req.body.startTime, 
+      startTime: req.body.startTime,
       endTime: req.body.endTime,
       date: req.body.month + " " + req.body.day + " , " + req.body.year,
       creatorId: req.user.id,
@@ -120,8 +120,8 @@ router.post("/createevent", function(req, res){
     	console.log(dbEvent.id);
      dbEvent.addUser(req.user.id);
      //  after the event created, redirect the
-     //  user to an individual event page labeled by ID in database 
-    res.json({redirect: true, eventId: dbEvent.id});   
+     //  user to an individual event page labeled by ID in database
+    res.json({redirect: true, eventId: dbEvent.id});
     });
   }
 });
@@ -134,9 +134,9 @@ router.get("/event", function(req, res){
         db.Event.findOne({
           where: {
             id: req.query.id
-          }        
+          }
           }).done(function(dbEvent){
-          //this checks if the user has already joined event 
+          //this checks if the user has already joined event
             dbEvent.hasUser(req.user.id).done(function(result){
               if(!result) {
                 //adds the user to the event
@@ -146,7 +146,7 @@ router.get("/event", function(req, res){
                     where: {
                     },
                     include:[{
-                      model: db.Partylist, 
+                      model: db.Partylist,
                       include:[{
                         model: db.Event,
                         where: {
@@ -182,7 +182,7 @@ router.get("/event", function(req, res){
                   });
                 });
               }
-            }); 
+            });
         });
       }
       else {
@@ -195,7 +195,7 @@ router.get("/event", function(req, res){
         raw: true,
         where: {
            id: req.query.id
-        }, 
+        },
          attributes: Object.keys(db.Event.attributes).concat([
           [
             db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
@@ -206,8 +206,9 @@ router.get("/event", function(req, res){
      if(dbEvent === null) {
      	//console.log("DB-Event is equalling null");
       res.redirect("/activities")
-     } else { 
-     	var hbsObject = {event: dbEvent, 
+     } else {
+     	var hbsObject = {event: dbEvent,
+        loggedIn: req.isAuthenticated(),
         helpers: {
           "subtract":  function(r, l) {
             return parseFloat(r) - parseFloat(l);
@@ -215,6 +216,7 @@ router.get("/event", function(req, res){
         }
       }
      	console.log(hbsObject);
+
       res.render("./partials/singleevent", hbsObject)
      }
     }, function(err){
