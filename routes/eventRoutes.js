@@ -112,7 +112,7 @@ router.post("/createevent", function(req, res){
       image: req.body.image
     };
     if(!req.body.image) {
-    	newEvent.image = "http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"
+    	newEvent.image = "https://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg"
     }
     //store the event in the dabtabase
     db.Event.create(newEvent).then(function(dbEvent){
