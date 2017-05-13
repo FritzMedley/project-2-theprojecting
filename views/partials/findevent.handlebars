@@ -219,7 +219,7 @@ function createEventDiv(event) {
   var eventDiv = $("<div>")
   eventDiv.attr("class", "row");
   eventDiv.html("<div class='col-md-4 event-image-container'><img src='images/concert.jpg'><div><h4 id='event-attendees'>"
-    +event.numAttendees - event.numGoing
+    +(event.numAttendees - event.numGoing)
     +" Spots Remaining! </h4><br><a href='/event?id="
     +event.id
     +"&join=true'><input type='submit' id='joinButton' class='cd btn' value='Join Event'></a></div></div><div class='col-md-6 event-info-container'><h2 id='event-title'>"
