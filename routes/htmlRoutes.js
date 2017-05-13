@@ -27,23 +27,6 @@ console.log(res.user);
 });
 
 
-
-//Route to activities page
-router.get("/activities", function(req, res){
-  //if(req.isAuthenticated())
-  var resObject = {
-    loggedIn: req.isAuthenticated()
-  }
-
-  if (req.user) {
-      resObject.user = req.user;
-      resObject.name = req.user.name;
-      resObject.email = req.user.email;
-  }
-
-  res.render("partials/activities", resObject);
-});
-
 //Route to login page
 router.get("/login", function(req, res){
   if(req.isAuthenticated())
@@ -198,8 +181,6 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
   });
 });
-
-
 
 
 router.post("/create", function(req, res) {

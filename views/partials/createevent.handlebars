@@ -1,13 +1,9 @@
 <head> 
-
 <link href="./css/create.css" rel="stylesheet">
-
+<!-- <link rel="stylesheet" href="./css/activities.css"> -->
 </head>
 <body>
-<div>
-    {{>test/googleMap2}}
-</div>
-
+{{> navbar}}
 
 <div class="events-create col-md-12"> 
     <h1>Create an Event</h1>
@@ -15,8 +11,9 @@
       <p>Ready to host an event? Let the community know what you're loooking to make happen by filling out this form! Be sure to 
 add the a description of the event, the time and location so that your attendees know what to look forward to!</p>
 </div>
+
 <div class="form-container">
-  <form id="createForm">
+  <form id="createForm" class="col-md-6">
   <div class="form-group event-field">
     <label for="name">Event Name:</label>
     <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="name">
@@ -224,8 +221,32 @@ add the a description of the event, the time and location so that your attendees
   <button type="submit" id="submitButton" class="btn btn-primary">Create A Table</button>
   </div>
 </form>
+<style>
+    #map {
+      margin-top: 50px;
+      height: 60%;
+      width: 40%;
+      text-align: center;
+      
+
+    }
+    #maps-location {
+      width: 300px;
+    }
+    input[name=location] {
+      margin-top: 10px;
+      width: 400px;
+      height: 25px;
+      font-size: 18px
+    }
+</style>
+<input type="text" id="maps-location" name="location"/><br>
+<div id="map" class="col-md-6">
+    {{>test/googleMap2}}
 </div>
 </div>
+
+
 
 <script> 
 
@@ -266,13 +287,13 @@ $("#submitButton").on("click", function(e){
       console.log(data);
       if (data.redirect) {
         //data.redirect contains the string URL to redirect to.
-        window.location.replace(data.redirect);
+        //window.location.replace(data.redirect)
+        window.location.replace("/event?id="+data.eventId); 
       }
       else {
         // data.form contains the HTML for the replacement form
         alert("This didn't work");
-        window.location.replace(data.redirect)
-      }
+        window.location.reload();      }
     } 
 });
 });

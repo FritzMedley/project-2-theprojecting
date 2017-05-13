@@ -1,0 +1,14 @@
+.container {
+  background-image: url("../images/basketball.jpg");
+  background-size: cover;
+  color: #ffffff;
+  font-family: 'Muli', sans-serif;
+  background-color: #122332;
+}
+
+#titleContainer {
+	text-align: center; 
+	color: #d44457;
+
+}
+

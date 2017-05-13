@@ -1,31 +1,55 @@
+body {
+  background-image: url("../images/basketball.jpg");
+  background-size: cover;
+  color: #d44457;
+  font-family: 'Muli', sans-serif;
+  background-color: #122332;
+}
+
+.container {
+  color: #d44457;
+}
+
 .events-title {
   text-align: center;
   padding-bottom: 20px;
   padding-top: 30px;
-  
+  color: #fff;
+}
+
+.events-title h1 {
+  font-size: 56px;
+  color: #fff;
 }
 
 .event-list {
-  border: #2c343b solid 4px; 
+   border: #2c343b solid 4px; 
    text-align: center; 
    padding-bottom: 10px;
    margin: 15px;
+   
 }
+
+
+
 
 .event-info-container {
   border:  rgba(212, 68, 87, 0.9) solid 3px; 
   text-align: left;
-  color: #2c343b;
+  color: #d44457;
   float: right;
   overflow: fixed;
   width: 66%;
   margin-bottom: 10px;
+  background-image: url("../images/green_dust_scratch.png");
 }
 
 .event-image-container {
   border: rgba(212, 68, 87, 0.9) dotted 1.5px; 
   float: left; 
+  padding: 15px;
   margin: 0px;
+  background-image: url("../images/green_dust_scratch.png");
 }
 
 .event-image-container img {

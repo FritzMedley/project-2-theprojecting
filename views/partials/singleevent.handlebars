@@ -1,10 +1,25 @@
-<div class="container">
 
+<link rel="stylesheet" href="./css/singleevent.css">
+<header>
+{{> navbar}}
+</header>
+
+<div class="container">
+<div id="titleContiner">
 <h1> {{event.name}}</h1>
-<img src="">
-<h2>{{event.startTime}} - {{event.endTime}}</h2>
-<h2>{{event.date}}</h2>
+</div>
+<div id="imageContainer">
+<img src="{{event.image}}">
+</div>
+<div id=dateTimeContainer>
+<h2 id="time">{{event.startTime}} - {{event.endTime}}</h2>
+<h2 id="data">{{event.date}}</h2>
+</div>
+<div id="descriptionContainer">
 <h2>{{event.category}}</h2>
 <h2>{{event.description}}</h2>
-<img src={{event.image}}>
+<h4>{{subtract event.numAttendees event.numGoing}} spots remaining!</h4>
+
+</div>
+
 </div>

@@ -10,8 +10,21 @@ router.get("/activities", function(req, res){
   // var resObject = {
   //   loggedIn: req.isAuthenticated()
   // }
-  db.Event.findAll({limit: 250}).then(function(dbEvents){
-  	var hbsObject = {event: dbEvents};
+  db.Event.findAll({limit: 250,
+    raw: true,
+    attributes: Object.keys(db.Event.attributes).concat([
+          [
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            "numGoing"
+          ]
+])}).then(function(dbEvents){
+    console.log(dbEvents);
+  	var hbsObject = {event: dbEvents,
+                 helpers: {
+                  "subtract":  function(r, l) {
+                    return parseFloat(r) - parseFloat(l);
+                  }
+    }};
   	res.render("./partials/activities", hbsObject);
   });
 });
@@ -47,7 +60,7 @@ router.post("/findevents", function(req, res){
 
 })
 
-router.get("/findevents", function(req, res) {
+router.get("/findevent", function(req, res) {
       res.render("partials/findevent");  
 });
 
@@ -108,7 +121,7 @@ router.post("/createevent", function(req, res){
      dbEvent.addUser(req.user.id);
      //  after the event created, redirect the
      //  user to an individual event page labeled by ID in database 
-    res.json({redirect: "/event/?id="+dbEvent.id});   
+    res.json({redirect: true, eventId: dbEvent.id});   
     });
   }
 });
@@ -121,8 +134,8 @@ router.get("/event", function(req, res){
         db.Event.findOne({
           where: {
             id: req.query.id
-          }
-        }).done(function(dbEvent){
+          }        
+          }).done(function(dbEvent){
           //this checks if the user has already joined event 
             dbEvent.hasUser(req.user.id).done(function(result){
               if(!result) {
@@ -179,15 +192,28 @@ router.get("/event", function(req, res){
   if(req.query.id !== null) {
   	console.log(req.query.id);
      db.Event.findOne({
+        raw: true,
         where: {
            id: req.query.id
-        }
-    }).done(function(dbEvent){
+        }, 
+         attributes: Object.keys(db.Event.attributes).concat([
+          [
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            "numGoing"
+          ]
+    ])}).done(function(dbEvent){
+
      if(dbEvent === null) {
      	//console.log("DB-Event is equalling null");
       res.redirect("/activities")
-     } else {
-     	var hbsObject = {event: dbEvent}
+     } else { 
+     	var hbsObject = {event: dbEvent, 
+        helpers: {
+          "subtract":  function(r, l) {
+            return parseFloat(r) - parseFloat(l);
+          }
+        }
+      }
      	console.log(hbsObject);
       res.render("./partials/singleevent", hbsObject)
      }
