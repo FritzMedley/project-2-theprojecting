@@ -97,7 +97,7 @@ router.post("/createaccount", function(req, res){
               template: 'mailWelcomeBody',
               context: {
                   name: dbUser.name,
-                  websiteUrl: "http://localhost:8080"
+                  websiteUrl: "https://vidiveni.herokuapp.com"
               }
             };
 

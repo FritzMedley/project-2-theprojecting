@@ -15,7 +15,7 @@ module.exports = function() {
   passport.use(new GoogleStrategy({
       clientID: GOOGLE_CLIENT_KEY,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/google/callback"
+      callbackURL: "https://vidiveni.herokuapp.com/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
         var loggedUser = {

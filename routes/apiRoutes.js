@@ -103,7 +103,7 @@ router.get("/api/events", function(req, res) {
     raw: true, 
       attributes: Object.keys(db.Event.attributes).concat([
           [
-            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM Partylists WHERE EventId = id)'),
             "numGoing"
           ]
 ])}).then(function(dbPost) {

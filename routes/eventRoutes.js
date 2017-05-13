@@ -14,7 +14,7 @@ router.get("/activities", function(req, res){
     raw: true,
     attributes: Object.keys(db.Event.attributes).concat([
           [
-            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM Partylists WHERE EventId = id)'),
             "numGoing"
           ]
 ])}).then(function(dbEvents){
@@ -165,7 +165,7 @@ router.get("/event", function(req, res){
                           template: 'mailJoinedBody',
                           context: {
                               name: dbStuff[i].name,
-                              websiteUrl: "http://localhost:8080",
+                              websiteUrl: "https://vidiveni.herokuapp.com",
                               joinedName: req.user.name,
                               eventId: dbEvent[0][0].EventId
                             }
@@ -198,7 +198,7 @@ router.get("/event", function(req, res){
         }, 
          attributes: Object.keys(db.Event.attributes).concat([
           [
-            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM Partylists WHERE EventId = id)'),
             "numGoing"
           ]
     ])}).done(function(dbEvent){
