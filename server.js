@@ -57,13 +57,13 @@ require("./config/passport.js")();
 var htmlRoutes = require("./routes/htmlRoutes.js");
 var loginRoutes = require("./routes/loginRoutes.js");
 var apiRoutes = require("./routes/apiRoutes.js");
-var grantTestRoutes = require("./routes/grantTestRoutes.js");
+//var grantTestRoutes = require("./routes/grantTestRoutes.js");
 var eventRoutes = require("./routes/eventRoutes.js");
 
 app.use("/", htmlRoutes);
 app.use(loginRoutes);
 app.use(apiRoutes);
-app.use(grantTestRoutes);
+//app.use(grantTestRoutes);
 app.use(eventRoutes);
 
 
