@@ -68,10 +68,10 @@ app.use(eventRoutes);
 
 
 //set equal to false to run tests on local machine
-db.sequelize.sync({force:true}).then(function(){
+db.sequelize.sync({force:false}).then(function(){
   app.listen(PORT, function(){
     console.log("Server listening on PORT: "+ PORT);
   });
-  var dummyEvents = require("./config/dummySeeds.js");
-  dummyEvents();
+  // var dummyEvents = require("./config/dummySeeds.js");
+  // dummyEvents();
 });
