@@ -51,7 +51,7 @@ router.get("/createaccount", function(req, res){
   }
   //send them to the create account page
   else {
-    res.render("./skeleton/createuser");
+    res.render("./skeleton/createUser");
   }
 
 });
