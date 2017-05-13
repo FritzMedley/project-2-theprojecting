@@ -1,12 +1,12 @@
 var nodemailer = require("nodemailer");
 var hbs = require('nodemailer-express-handlebars');
-var auth = require("./auth.js");
+//var auth = require("./auth.js");
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'vidivenimail@gmail.com',
-        pass: auth.APP_PASSWORD
+        pass: process.env.APP_PASSWORD
     }
 });
 
