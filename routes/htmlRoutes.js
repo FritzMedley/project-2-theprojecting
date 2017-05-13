@@ -79,7 +79,7 @@ router.post("/createaccount", function(req, res){
           name: req.body.username
         }
       console.log('got here 4')
-      return res.render("./skeleton/createuser", errHandler);
+      return res.render("./skeleton/createUser", errHandler);
     } else {
       //user created if email isn't taken
       console.log('got here 5')
