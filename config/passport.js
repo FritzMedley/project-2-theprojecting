@@ -1,6 +1,8 @@
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+var GOOGLE_CLIENT_KEY = process.env.GOOGLE_CONSUMER_KEY;
+var GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CONSUMER_SECRET;
 var bcrypt = require("bcrypt");
 
 var db = require("../models");
@@ -11,8 +13,8 @@ var db = require("../models");
 //   profile), and invoke a callback with a user object.
 module.exports = function() {
   passport.use(new GoogleStrategy({
-      clientID: process.env.GOOGLE_CLIENT_KEY,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: GOOGLE_CLIENT_KEY,
+      clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:8080/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
