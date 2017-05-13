@@ -1,15 +1,84 @@
+.eventDiv {
+  margin: auto;
+}
 
-.jumbotron {
-    background-color: #d44457;
-     position: relative;
-     color: #f2f2f2;
-  text-align: center;
-  padding: 100px 15px 100px;
-  width: 100%;
-  background-size: cover;
+
+
+.event-list {
+   border: #2c343b solid 4px; 
+   text-align: center; 
+   margin: 200px;
+   padding-bottom: 10px;
+   margin: 15px;   
+}
+
+.event-image-container img {
+  padding: 10%;
+  overflow: hidden; 
+  clear: both;
+}
+
+#event-attendees {
   margin: 0px;
+}
+
+
+#titleDiv {
+  clear: both;
+  text-align: center;
+  margin-bottom: 50px;
+  color: #fff;
+  padding: 0px;
+}
+
+#titleDiv h1 {
+
+font-size: 55px;
 
 }
+
+.findContainer {
+  background-image: url("../images/green_dust_scratch.png");
+  clear: both;
+  margin: 200px;
+  margin-top: 50px;
+  border:  rgba(212, 68, 87, 0.9) solid 5px; ;
+  padding-top: 35px;
+  padding-bottom: 25px;
+  padding-left: 50px;
+  padding-right: 50px;
+  color: #d44457;
+  font-size: 20px;
+}
+
+#submitButton {
+    background-color: #d44457;
+    padding: 15px 32px;
+    font-size: 20px;
+    position: relative;
+    left: 40%;
+}
+
+.event-image-container {
+ 
+  border: rgba(212, 68, 87, 0.9) dotted 1.5px; 
+  padding: 15px;
+  margin: 0px;
+  width:40%;
+  background-image: url("../images/green_dust_scratch.png");
+}
+
+.event-info-container {
+  border:  rgba(212, 68, 87, 0.9) solid 3px; 
+  text-align: left;
+  color: #d44457;
+  overflow: fixed;
+  float: right;
+  width: 60%;
+  margin-bottom: 10px;
+  background-image: url("../images/green_dust_scratch.png");
+}
+/*
 
 ul {
     list-style: none;
@@ -42,4 +111,4 @@ ul {
   color: #fff !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
   -webkit-font-smoothing: antialiased;
-}
+}*/

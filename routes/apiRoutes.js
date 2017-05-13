@@ -18,38 +18,38 @@ var router = express.Router();
 
 
 // POST route for saving a new post
-router.get("/api/events", function(req, res) {
-  var query = {};
-  if (req.query.user_id) {
-    query.creatorId = req.query.user_id;
-  }
-  if (req.query.location) {
-    query.location = req.query.location;
-  }
-  if (req.query.category) {
-    query.category = req.query.category;
-  }
-  if (req.query.date) {
-    query.date = req.query.date;
-  }
-  if (req.query.endTime) {
-    query.endTime = req.query.endTime;
-  } 
-  if (req.query.startTime) {
-    query.startTime = req.query.startTime;
-  }
-  console.log(query);
-  //console.log(req.body.location);
-  db.Event.findAll({
-    //please be nice sequelize test
-    where: query,
-    raw: true
-  }).then(function(dbPost) {
-    res.json(dbPost);
-  }, function(err){
-    res.json([]); 
-  });
-});
+// router.get("/api/events", function(req, res) {
+//   var query = {};
+//   if (req.query.user_id) {
+//     query.creatorId = req.query.user_id;
+//   }
+//   if (req.query.location) {
+//     query.location = req.query.location;
+//   }
+//   if (req.query.category) {
+//     query.category = req.query.category;
+//   }
+//   if (req.query.date) {
+//     query.date = req.query.date;
+//   }
+//   if (req.query.endTime) {
+//     query.endTime = req.query.endTime;
+//   } 
+//   if (req.query.startTime) {
+//     query.startTime = req.query.startTime;
+//   }
+//   console.log(query);
+//   //console.log(req.body.location);
+//   db.Event.findAll({
+//     //please be nice sequelize test
+//     where: query,
+//     raw: true
+//   }).then(function(dbPost) {
+//     res.json(dbPost);
+//   }, function(err){
+//     res.json([]); 
+//   });
+// });
 
 
 
@@ -97,8 +97,14 @@ router.get("/api/events", function(req, res) {
     query.time = req.query.time;
   }
   db.Event.findAll({
-    where: query
-  }).then(function(dbPost) {
+    where: query,
+    raw: true, 
+      attributes: Object.keys(db.Event.attributes).concat([
+          [
+            db.sequelize.literal('(SELECT COUNT(UserId) FROM partylists WHERE EventId = id)'),
+            "numGoing"
+          ]
+])}).then(function(dbPost) {
     res.json(dbPost);
   });
 });

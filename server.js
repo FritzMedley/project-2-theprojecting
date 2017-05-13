@@ -21,6 +21,10 @@ app.use(methodOverride("_method"));
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
+//pass in exphbs variable as param for configuring handlebars
+
+
+
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
